@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <HTTPClient.h>
 
 #ifndef ServidorCI_H
 #define ServidorCI_H

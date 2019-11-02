@@ -3,11 +3,14 @@
 #include "ManejadorDelPrograma.hpp"
 
 ManejadorDelPrograma manejadorDelPrograma;
+//ControladorWifi controladorWifi;
 
-String estado = "";
+String estadoBuild = "";
 
 void setup () {
 
+    manejadorDelPrograma.establecerConexion("Fibertel WiFi NUMERO 2", "00416040571");
+    
     Serial.begin(115200);
 
 }
@@ -15,6 +18,22 @@ void setup () {
 void loop () {
 
     manejadorDelPrograma.definirEstrategia(1);
+
+    estadoBuild = manejadorDelPrograma.obtenerEstadoUltimoBuild();
+
+    Serial.println(estadoBuild);
+
+    delay(3000);
+
+    manejadorDelPrograma.definirEstrategia(2);
+
+    estadoBuild = manejadorDelPrograma.obtenerEstadoUltimoBuild();
+
+    Serial.println(estadoBuild);
+
+    delay(3000);
+    
+    /*manejadorDelPrograma.definirEstrategia(1);
 
     estado = manejadorDelPrograma.obtenerEstadoUltimoBuild();
 
@@ -28,7 +47,7 @@ void loop () {
 
     Serial.println(estado);
 
-    delay(1000);
+    delay(1000);*/
 }
 
 /*#include <ArduinoJson.h>

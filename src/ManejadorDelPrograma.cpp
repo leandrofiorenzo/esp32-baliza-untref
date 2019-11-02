@@ -9,7 +9,11 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 };
 
 String ManejadorDelPrograma::obtenerEstadoUltimoBuild() {
-    return servidorIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();
+    if(controladorWifi.estaConectado()) {
+        return servidorIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();
+    } else {
+        Serial.println("No hay conexión. Reintentando...");
+    }
 };
 
 void ManejadorDelPrograma::definirEstrategia(int ci) {
@@ -19,3 +23,7 @@ void ManejadorDelPrograma::definirEstrategia(int ci) {
         servidorIntegracionContinuaStrategy = new StrategyFicticia();
     }
 };
+
+void ManejadorDelPrograma::establecerConexion(char *ssid, char *password) {
+    controladorWifi.establecerConexion(ssid, password);
+}

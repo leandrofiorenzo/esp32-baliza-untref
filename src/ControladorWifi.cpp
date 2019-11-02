@@ -1,6 +1,13 @@
 #include "ControladorWifi.hpp"
 
-ControladorWifi::ControladorWifi(char *ssid, char *passowrd) {
+ControladorWifi::ControladorWifi() {
+
+};
+
+void ControladorWifi::establecerConexion(char *ssid, char *passowrd) {
     wifiMulti.addAP(ssid, passowrd);
-    wifiMulti.addAP("Fibertel WiFi NUMERO 2", "00416040571");
-}
+};
+
+boolean ControladorWifi::estaConectado() {
+    return wifiMulti.run() ==  WL_CONNECTED;
+};

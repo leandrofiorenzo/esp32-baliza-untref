@@ -6,6 +6,6 @@ StrategyFicticia::StrategyFicticia() {
 };
 
 String StrategyFicticia::obtenerEstadoUltimoBuild() {
-    return "ficticia";
+    return "ficticio";
 };
 

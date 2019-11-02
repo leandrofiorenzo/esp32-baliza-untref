@@ -3,8 +3,9 @@
 
 class ControladorWifi {
     private:
-        static WiFiMulti wifiMulti;
+        WiFiMulti wifiMulti;
     public:
-        ControladorWifi(char *ssid, char *passowrd);
+        ControladorWifi();
+        void establecerConexion(char *ssid, char *passowrd);
         boolean estaConectado();
 };
