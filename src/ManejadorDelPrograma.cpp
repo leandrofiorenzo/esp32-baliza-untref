@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 #include "ManejadorDelPrograma.hpp"
-#include "TravisStrategy.hpp"
-#include "StrategyFicticia.hpp"
+#include "./ci/TravisStrategy.hpp"
+#include "./ci/StrategyFicticia.hpp"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
 

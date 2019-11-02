@@ -1,4 +1,4 @@
-#include "ServidorIntegracionContinuaStrategy.hpp"
+#include "./ci/ServidorIntegracionContinuaStrategy.hpp"
 
 class ManejadorDelPrograma {
     private:
