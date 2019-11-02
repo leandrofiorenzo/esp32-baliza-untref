@@ -7,12 +7,13 @@ ManejadorDelPrograma manejadorDelPrograma;
 String estado = "";
 
 void setup () {
-    
+
     Serial.begin(115200);
 
 }
 
 void loop () {
+
     manejadorDelPrograma.definirEstrategia(1);
 
     estado = manejadorDelPrograma.obtenerEstadoUltimoBuild();
