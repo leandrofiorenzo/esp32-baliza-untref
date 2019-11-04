@@ -3,5 +3,5 @@
 class StrategyFicticia : public ServidorIntegracionContinuaStrategy {
     public:      
         StrategyFicticia();
-        String obtenerEstadoUltimoBuild();
+        EstadoBuildEnum obtenerEstadoUltimoBuild();
 };

@@ -1,26 +1,30 @@
 #include <Arduino.h>
 
 #include "ManejadorDelPrograma.hpp"
-#include "./ci/TravisStrategy.hpp"
-#include "./ci/StrategyFicticia.hpp"
+#include "ci/TravisStrategy.hpp"
+#include "ci/StrategyFicticia.hpp"
+#include "enums/EstadoBuildEnum.hpp"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
 
 };
 
-String ManejadorDelPrograma::obtenerEstadoUltimoBuild() {
+String ManejadorDelPrograma::ejecutarRutina() {
     if(controladorWifi.estaConectado()) {
-        return servidorIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();
+        //1) Obtenemos el estado del ultimo build en el CI que corresponda.
+        EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();
+
+        
     } else {
         Serial.println("No hay conexión. Reintentando...");
     }
 };
 
-void ManejadorDelPrograma::definirEstrategia(int ci) {
+void ManejadorDelPrograma::definirServidorDeIntegracionContinua(int ci) {
     if(ci == 1) {
-        servidorIntegracionContinuaStrategy = new TravisStrategy();
+        servidorDeIntegracionContinuaStrategy = new TravisStrategy();
     } else {
-        servidorIntegracionContinuaStrategy = new StrategyFicticia();
+        servidorDeIntegracionContinuaStrategy = new StrategyFicticia();
     }
 };
 

@@ -1,11 +1,12 @@
 #include <Arduino.h>
 #include "StrategyFicticia.hpp"
+#include "enums/EstadoBuildEnum.hpp"
 
 StrategyFicticia::StrategyFicticia() {
 
 };
 
-String StrategyFicticia::obtenerEstadoUltimoBuild() {
-    return "ficticio";
+EstadoBuildEnum StrategyFicticia::obtenerEstadoUltimoBuild() {
+    return EstadoBuildEnum::Desconocido;
 };
 

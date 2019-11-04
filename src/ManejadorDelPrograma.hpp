@@ -3,11 +3,11 @@
 
 class ManejadorDelPrograma {
     private:
-        ServidorIntegracionContinuaStrategy *servidorIntegracionContinuaStrategy;
+        ServidorIntegracionContinuaStrategy *servidorDeIntegracionContinuaStrategy;
         ControladorWifi controladorWifi;
     public: 
         ManejadorDelPrograma();
-        String obtenerEstadoUltimoBuild();
-        void definirEstrategia(int ci);
+        String ejecutarRutina();
+        void definirServidorDeIntegracionContinua(int ci);
         void establecerConexionWiFi(char *ssid, char *passphrase);
 };

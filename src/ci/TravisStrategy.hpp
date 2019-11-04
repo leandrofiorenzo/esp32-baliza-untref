@@ -3,5 +3,5 @@
 class TravisStrategy : public ServidorIntegracionContinuaStrategy {
     public: 
         TravisStrategy();      
-        String obtenerEstadoUltimoBuild();
+        EstadoBuildEnum obtenerEstadoUltimoBuild();
 };

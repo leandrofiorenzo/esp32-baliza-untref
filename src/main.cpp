@@ -10,23 +10,23 @@ void setup () {
 
     Serial.begin(115200);
 
-    manejadorDelPrograma.establecerConexionWiFi("", "");
+    manejadorDelPrograma.establecerConexionWiFi("Fibertel WiFi304 2.4GHz", "0141695284");
     
 }
 
 void loop () {
 
-    manejadorDelPrograma.definirEstrategia(1);
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(1);
 
-    estadoBuild = manejadorDelPrograma.obtenerEstadoUltimoBuild();
+    estadoBuild = manejadorDelPrograma.ejecutarRutina();
 
     Serial.println(estadoBuild);
 
     delay(3000);
 
-    manejadorDelPrograma.definirEstrategia(2);
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(2);
 
-    estadoBuild = manejadorDelPrograma.obtenerEstadoUltimoBuild();
+    estadoBuild = manejadorDelPrograma.ejecutarRutina();
 
     Serial.println(estadoBuild);
 

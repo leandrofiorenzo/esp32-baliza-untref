@@ -1,15 +1,14 @@
 #include <ArduinoJson.h>
 #include <Arduino.h>
 #include "TravisStrategy.hpp"
+#include "enums/EstadoBuildEnum.hpp"
 
 TravisStrategy::TravisStrategy() {
 
 };
 
-String TravisStrategy::obtenerEstadoUltimoBuild() {
+EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
     HTTPClient clienteHttp;
-
-    String estadoBuild = "no-state";
 
     clienteHttp.begin("https://api.travis-ci.org/builds?limit=1");
     clienteHttp.addHeader("Authorization", "token zxiel_jS6Xaaok3zgnHGzQ"); 
@@ -23,51 +22,30 @@ String TravisStrategy::obtenerEstadoUltimoBuild() {
             DynamicJsonDocument dynamicJsonDocument(1024);
             deserializeJson(dynamicJsonDocument, jsonResponse);   
             JsonObject jsonObject = dynamicJsonDocument.as<JsonObject>();
-            return jsonObject["builds"][0]["state"];
+            String estadoBuildString = jsonObject["builds"][0]["state"];
 
-            /*if(state == "created") {
-                digitalWrite(pinCreated, HIGH);
-                digitalWrite(pinStarted, LOW);
-                digitalWrite(pinFailed, LOW);
-                digitalWrite(pinPassed, LOW);
-                digitalWrite(pinNoState, LOW);                  
-            } else if(state == "started") {
-                digitalWrite(pinCreated, LOW);
-                digitalWrite(pinStarted, HIGH);
-                digitalWrite(pinFailed, LOW);
-                digitalWrite(pinPassed, LOW);
-                digitalWrite(pinNoState, LOW);    
-            } else if(state == "failed") {
-                digitalWrite(pinCreated, LOW);
-                digitalWrite(pinStarted, LOW);
-                digitalWrite(pinFailed, HIGH);
-                digitalWrite(pinPassed, LOW);
-                digitalWrite(pinNoState, LOW);
-            } else if(state == "passed") {
-                digitalWrite(pinCreated, LOW);
-                digitalWrite(pinStarted, LOW);
-                digitalWrite(pinFailed, LOW);
-                digitalWrite(pinPassed, HIGH);
-                digitalWrite(pinNoState, LOW);
+            if(estadoBuildString == "created") {
+                return EstadoBuildEnum::Creado;               
+            } else if(estadoBuildString == "started") {
+                return EstadoBuildEnum::EnCurso;    
+            } else if(estadoBuildString == "failed") {
+                return EstadoBuildEnum::Fallido;
+            } else if(estadoBuildString == "passed") {
+                return EstadoBuildEnum::Exitoso;
             } else {
-                digitalWrite(pinCreated, LOW);
-                digitalWrite(pinStarted, LOW);
-                digitalWrite(pinFailed, LOW);
-                digitalWrite(pinPassed, LOW);
-                digitalWrite(pinNoState, HIGH);
-            }*/
-            
+                return EstadoBuildEnum::Desconocido;
+            }
         } else {
-            Serial.print("Fallo. Estado: ");
-            Serial.println(httpCode);            
-            //digitalWrite(pinNoState, HIGH);
+            Serial.print("El request devolvio el status code: ");
+            Serial.println(httpCode);           
+            return EstadoBuildEnum::Desconocido;
         }
     } else {
-        Serial.printf("[HTTP] GET... failed, error: %s\n", clienteHttp.errorToString(httpCode).c_str());
+        Serial.printf("El request devolvio el status code: %s\n", clienteHttp.errorToString(httpCode).c_str());
     }
 
     clienteHttp.end();
 
-    return estadoBuild;
+    return EstadoBuildEnum::Desconocido;
 };
 
