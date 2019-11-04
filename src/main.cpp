@@ -3,16 +3,15 @@
 #include "ManejadorDelPrograma.hpp"
 
 ManejadorDelPrograma manejadorDelPrograma;
-//ControladorWifi controladorWifi;
 
 String estadoBuild = "";
 
 void setup () {
 
-    manejadorDelPrograma.establecerConexion("Fibertel WiFi NUMERO 2", "00416040571");
-    
     Serial.begin(115200);
 
+    manejadorDelPrograma.establecerConexionWiFi("", "");
+    
 }
 
 void loop () {

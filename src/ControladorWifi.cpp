@@ -4,10 +4,14 @@ ControladorWifi::ControladorWifi() {
 
 };
 
-void ControladorWifi::establecerConexion(char *ssid, char *passowrd) {
-    wifiMulti.addAP(ssid, passowrd);
+void ControladorWifi::establecerConexionWiFi(char *ssid, char *passphrase) {
+    WiFi.begin(ssid, passphrase);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.println("Conectando a WiFi...");
+    }
 };
 
 boolean ControladorWifi::estaConectado() {
-    return wifiMulti.run() ==  WL_CONNECTED;
+    return WiFi.status() ==  WL_CONNECTED;
 };

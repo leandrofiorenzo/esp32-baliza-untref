@@ -9,5 +9,5 @@ class ManejadorDelPrograma {
         ManejadorDelPrograma();
         String obtenerEstadoUltimoBuild();
         void definirEstrategia(int ci);
-        void establecerConexion(char *ssid, char *passowrd);
+        void establecerConexionWiFi(char *ssid, char *passphrase);
 };

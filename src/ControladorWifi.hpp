@@ -1,11 +1,8 @@
 #include <WiFi.h>
-#include <WiFiMulti.h>
 
 class ControladorWifi {
-    private:
-        WiFiMulti wifiMulti;
     public:
         ControladorWifi();
-        void establecerConexion(char *ssid, char *passowrd);
+        void establecerConexionWiFi(char *ssid, char *passphrase);
         boolean estaConectado();
 };

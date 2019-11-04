@@ -24,6 +24,6 @@ void ManejadorDelPrograma::definirEstrategia(int ci) {
     }
 };
 
-void ManejadorDelPrograma::establecerConexion(char *ssid, char *password) {
-    controladorWifi.establecerConexion(ssid, password);
+void ManejadorDelPrograma::establecerConexionWiFi(char *ssid, char *passphrase) {
+    controladorWifi.establecerConexionWiFi(ssid, passphrase);
 }
