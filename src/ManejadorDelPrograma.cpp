@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #include "ManejadorDelPrograma.hpp"
 #include "ci/TravisStrategy.hpp"
 #include "ci/StrategyFicticia.hpp"
@@ -9,12 +8,13 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 
 };
 
-String ManejadorDelPrograma::ejecutarRutina() {
-    if(controladorWifi.estaConectado()) {
+void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
+    if(controladorDeWifi.estaConectado()) {
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
-        EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();
+        EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
 
-        
+        //2) Prendemos el led que corresponda.
+        controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
     } else {
         Serial.println("No hay conexión. Reintentando...");
     }
@@ -29,5 +29,5 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(int ci) {
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(char *ssid, char *passphrase) {
-    controladorWifi.establecerConexionWiFi(ssid, passphrase);
+    controladorDeWifi.establecerConexionWiFi(ssid, passphrase);
 }

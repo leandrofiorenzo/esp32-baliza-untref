@@ -1,13 +1,15 @@
 #include "./ci/ServidorIntegracionContinuaStrategy.hpp"
-#include "ControladorWifi.hpp"
+#include "ControladorDeWifi.hpp"
+#include "ControladorDeLeds.hpp"
 
 class ManejadorDelPrograma {
     private:
         ServidorIntegracionContinuaStrategy *servidorDeIntegracionContinuaStrategy;
-        ControladorWifi controladorWifi;
+        ControladorDeWifi controladorDeWifi;
+        ControladorDeLeds controladorDeLeds;
     public: 
         ManejadorDelPrograma();
-        String ejecutarRutina();
+        void ejecutarRutinaDeVerificacion();
         void definirServidorDeIntegracionContinua(int ci);
         void establecerConexionWiFi(char *ssid, char *passphrase);
 };
