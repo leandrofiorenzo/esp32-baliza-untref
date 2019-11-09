@@ -2,7 +2,7 @@
 #define EstadoBuildEnum_H
 
 enum EstadoBuildEnum {
-    /*Creado,*/
+    Creado,
     EnCurso,
     Exitoso,
     Fallido,
