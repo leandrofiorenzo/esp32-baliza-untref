@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "ControladorDeLeds.hpp"
 
+
 void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild) {
     if(estadoBuild == EstadoBuildEnum::Creado) {
         Serial.println("Estoy Creado");
@@ -8,12 +9,22 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
     else if(estadoBuild == EstadoBuildEnum::Desconexion) {
         Serial.println("Estoy Desconectado de WiFi");
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
+        digitalWrite(17, HIGH);
         Serial.println("Estoy EnCurso");   
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
+        digitalWrite(18, HIGH);
         Serial.println("Estoy Exitoso");   
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
+        digitalWrite(19, HIGH);
         Serial.println("Estoy Fallido");   
     } else {
         Serial.println("Estoy nn");
     }
 };
+
+void ControladorDeLeds::iniciarAnalisisBuild(){
+    digitalWrite(17, LOW);
+    digitalWrite(18, LOW);
+    digitalWrite(19, LOW);
+    prenderLedCorrespondienteAlEstado(EnCurso);
+}
