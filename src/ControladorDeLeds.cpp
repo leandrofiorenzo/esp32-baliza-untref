@@ -13,9 +13,11 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         Serial.println("Estoy EnCurso");   
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         digitalWrite(18, HIGH);
+        digitalWrite(17, LOW);
         Serial.println("Estoy Exitoso");   
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
         digitalWrite(19, HIGH);
+        digitalWrite(17, LOW);
         Serial.println("Estoy Fallido");   
     } else {
         Serial.println("Estoy nn");
