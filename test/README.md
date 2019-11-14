@@ -1,5 +1,11 @@
 # Baliza de Integración Continua con un ESP32.
 
+## Para correr los test:
+pio test -e native
+
+## Para subir el programa al ESP32:
+pio run --target upload -e esp32dev
+
 ## Requerimientos:
 
 ## 1. Actualizar estado de la baliza  
