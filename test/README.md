@@ -1,73 +1,30 @@
 # Baliza de Integración Continua con un ESP32.
 
-## Requerimientos
+## Requerimientos:
 
-## 1# Actualizar estado de la baliza
-### Descripcion
++ 1) Actualizar estado de la baliza
 El estado de la baliza deberá actualizarse ante cada cambio de estado del build.
 
-### Generar el jar.
-+ mvn clean package
-+ mvn package
++ 2) Color asociado a estado
+La baliza deberá mostra luz de color de acuerdo al estado del build:
+Exitoso => Verde
+Fallido => Rojo
 
-### Ejecutar.
-+ java -jar fibo.jar n -opts
++ 3) Aviso de cambio de estado
+La baliza deberá destacar el cambio de estado (Exitoso a Fallido o Fallido a Exitoso) con un alarma sonora corta y/o parpadeo de la luz.
 
-#### opts:
--f=x   
-+ 'x' define el archivo donde se va a guardar el resultado de la ejecución      
++ 4) Conexión a través de WiFi
+La baliza deberá conectarse al servidor del sistema de Integración Continua mediante WiFi.
 
--o=xy      
-+ 'x' define la orientación del resultadoo. Puede ser 'v' (vertical) o 'h' (horizontal)        
-+ 'y' define la direccion del resultado. Puede ser 'd' (directa) o 'i' (inversa)        
++ 5) Aviso de desconexión
+La baliza deberá destacar su desconexión con un color distinto a los demás, por ejemplo, Naranja.
 
--m=x    
-+ 'x' define el modo de funcionamiento del programa. Puede ser 'l' (lista) o 's' (sumatoria)         
++ 6) Configuración de WiFi
+La baliza deberá permitir configurar la red y credenciales para conectarse a WiFi.
 
-#### Ejemplos.
-##### 1)
-java -jar fibo.jar -o=vd -m=l 5
++ 7) Configuración de build
+La baliza deberá permitir configurar la url del build monitoreado y las credenciales de acceso al sistema de Integración Continua.
 
-resultado:      
-fibo<5>:  
-0  
-1  
-1  
-2  
-3  
- 
-##### 2)
-java -jar fibo.jar -o=vd -m=s 5
-
-resultado:      
-fibo<5>: 7
-
-##### 3)
-java -jar fibo.jar -f=prueba.txt -o=vd -m=s 8
-
-resultado:        
-fibo<8> guardado en prueba.txt
-
-## Decisiones de diseño
-
-La principal decisión de diseño tomada fue el uso del patrón Strategy.
-
-Se definieron 3 interfaces:
-+ IOrientacionStrategy
-+ IDireccionStrategy
-+ IModoDeFuncionamientoStrategy
-
-Y sus correspondientes implementaciones:
-+ OrientacionHorizontalStrategy
-+ OrientacionVerticalStrategy
-
-+ DireccionDirectaStrategy
-+ DireccionInversaStrategy
-
-+ ModoDeFuncionamientoListaStrategy
-+ ModoDeFuncionamientoSumaStrategy
-
-Cada una de ellas implementa la funcionalidad que correspode a su nombre. La clase que decide que implementación usar es OrquestadorDelPrograma, la cual inyecta en tiempo de ejecución la implementación correspondiente.
-
-
++ 8) Agregar Herramienta de Integración Continua
+La baliza deberá permitir agregar conectores para nuevas herramientas de Integración Continua.
 
