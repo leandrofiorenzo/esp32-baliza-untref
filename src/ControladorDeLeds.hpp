@@ -2,6 +2,8 @@
 
 class ControladorDeLeds {
     public: 
+        ControladorDeLeds();
         void prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild);
-        void iniciarAnalisisBuild();
+    private: 
+        void apagarTodosLosLeds();
 };

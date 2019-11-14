@@ -1,32 +1,43 @@
 #include <Arduino.h>
 #include "ControladorDeLeds.hpp"
 
+ControladorDeLeds::ControladorDeLeds() {
+    pinMode(15, OUTPUT);
+    pinMode(18, OUTPUT);
+    pinMode(19, OUTPUT);
+    pinMode(21, OUTPUT); 
+    pinMode(22, OUTPUT);
+    pinMode(23, OUTPUT);
+}
 
 void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild) {
+    apagarTodosLosLeds();
     if(estadoBuild == EstadoBuildEnum::Creado) {
         Serial.println("Estoy Creado");
-    } /*else if(estadoBuild == EstadoBuildEnum::Desconocido) {*/
-    else if(estadoBuild == EstadoBuildEnum::Desconexion) {
+        digitalWrite(18, HIGH);
+    } else if(estadoBuild == EstadoBuildEnum::Desconexion) {
         Serial.println("Estoy Desconectado de WiFi");
+        digitalWrite(19, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
-        digitalWrite(17, HIGH);
+        digitalWrite(21, HIGH);
         Serial.println("Estoy EnCurso");   
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
-        digitalWrite(18, HIGH);
-        digitalWrite(17, LOW);
+        digitalWrite(22, HIGH);
         Serial.println("Estoy Exitoso");   
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
-        digitalWrite(19, HIGH);
-        digitalWrite(17, LOW);
+        digitalWrite(23, HIGH);
         Serial.println("Estoy Fallido");   
     } else {
-        Serial.println("Estoy nn");
+        digitalWrite(15, HIGH);
+        Serial.println("Estoy Desconocido");
     }
 };
 
-void ControladorDeLeds::iniciarAnalisisBuild(){
-    digitalWrite(17, LOW);
+void ControladorDeLeds::apagarTodosLosLeds() {
     digitalWrite(18, LOW);
     digitalWrite(19, LOW);
-    prenderLedCorrespondienteAlEstado(EnCurso);
+    digitalWrite(21, LOW);
+    digitalWrite(22, LOW);
+    digitalWrite(23, LOW);
+    digitalWrite(15, LOW);
 }
