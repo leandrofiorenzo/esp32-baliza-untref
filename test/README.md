@@ -2,7 +2,7 @@
 
 ## Requerimientos:
 
-1. Actualizar estado de la baliza  
+## 1. Actualizar estado de la baliza  
 El estado de la baliza deberá actualizarse ante cada cambio de estado del build.
 
 2. Color asociado a estado  
