@@ -3,34 +3,19 @@
 #include "ManejadorDelPrograma.hpp"
 
 #include "estrategias-integracion-continua/TravisStrategy.hpp"
-
 #include "estrategias-integracion-continua/StrategyFicticia.hpp"
 
 ManejadorDelPrograma manejadorDelPrograma;
 
-String estadoBuild = "";
-
 void setup () {
-
     Serial.begin(115200);
-
-    const char* ssid = "LAPTOP-VNJ3NAQE 9679";
-    const char* password = "lfiorenzo123";
-    manejadorDelPrograma.establecerConexionWiFi(ssid, password);
-    
+    const char* ssid = "Redmi";
+    const char* passphrase = "lfiorenzo123";
+    manejadorDelPrograma.establecerConexionWiFi(ssid, passphrase);  
 }
 
 void loop () {
-
-    //manejadorDelPrograma.definirServidorDeIntegracionContinua(new TravisStrategy());
-
-    //manejadorDelPrograma.ejecutarRutinaDeVerificacion();
-
-    //delay(1000);
-
-    manejadorDelPrograma.definirServidorDeIntegracionContinua(new StrategyFicticia());
-
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(new TravisStrategy());
     manejadorDelPrograma.ejecutarRutinaDeVerificacion();
-
-    delay(100);
+    delay(1000);
 }

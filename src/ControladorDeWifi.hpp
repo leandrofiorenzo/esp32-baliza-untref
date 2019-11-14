@@ -1,9 +1,6 @@
 #include <WiFi.h>
 
 class ControladorDeWifi {
-    private:
-        const char* nombreRed = ""; 
-        const char* contraseñaRed = "";
     public:
         ControladorDeWifi();
         void establecerConexionWiFi(const char *ssid, const char *passphrase);      
