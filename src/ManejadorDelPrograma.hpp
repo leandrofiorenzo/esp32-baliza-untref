@@ -11,5 +11,5 @@ class ManejadorDelPrograma {
         ManejadorDelPrograma();
         void ejecutarRutinaDeVerificacion();
         void definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI);
-        void establecerConexionWiFi(const char *ssid, const char *passphrase);
+        void establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed);
 };

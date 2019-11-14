@@ -4,9 +4,9 @@ ControladorDeWifi::ControladorDeWifi() {
 
 };
 
-void ControladorDeWifi::establecerConexionWiFi(const char *ssid, const char *passphrase) {
+void ControladorDeWifi::establecerConexionWiFi() {
     WiFi.disconnect();
-    WiFi.begin(ssid, passphrase);
+    WiFi.begin(nombreRed, contrasenaRed);
     while (WiFi.status() != WL_CONNECTED) {
         Serial.print("Se intento conectar y devolvió el estado: ");
         Serial.print(obtenerEstadoDeLaConexion(WiFi.status()));
@@ -14,6 +14,16 @@ void ControladorDeWifi::establecerConexionWiFi(const char *ssid, const char *pas
         delay(1000);
     }
 };
+
+boolean ControladorDeWifi::estaConectado() {
+    return WiFi.status() ==  WL_CONNECTED;
+};
+
+void ControladorDeWifi::cambiarCredencialesConexion(const char *_nombreRed, const char *_contrasenaRed) {
+    nombreRed = _nombreRed;
+    contrasenaRed = _contrasenaRed;
+    establecerConexionWiFi();
+}
 
 const char* ControladorDeWifi::obtenerEstadoDeLaConexion(wl_status_t status) {
   switch (status) {
@@ -29,7 +39,3 @@ const char* ControladorDeWifi::obtenerEstadoDeLaConexion(wl_status_t status) {
   }
   return "NO SE";  
 }
-
-boolean ControladorDeWifi::estaConectado() {
-    return WiFi.status() ==  WL_CONNECTED;
-};

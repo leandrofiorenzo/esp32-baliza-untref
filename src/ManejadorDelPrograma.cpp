@@ -18,6 +18,7 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     } else {
         Serial.println("No hay conexión. Reintentando...");
         controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::Desconexion);
+        controladorDeWifi.establecerConexionWiFi();    
     }
 };
 
@@ -26,6 +27,6 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegrac
     servidorDeIntegracionContinuaStrategy = servidorCI;    
 };
 
-void ManejadorDelPrograma::establecerConexionWiFi(const char *ssid, const char *passphrase) {
-    controladorDeWifi.establecerConexionWiFi(ssid, passphrase);
+void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
+    controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
 }
