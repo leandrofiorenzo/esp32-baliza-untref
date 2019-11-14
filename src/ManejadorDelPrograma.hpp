@@ -1,4 +1,4 @@
-#include "./ci/ServidorIntegracionContinuaStrategy.hpp"
+#include "estrategias-integracion-continua/ServidorIntegracionContinuaStrategy.hpp"
 #include "ControladorDeWifi.hpp"
 #include "ControladorDeLeds.hpp"
 
