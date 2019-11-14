@@ -29,7 +29,7 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
             String estadoBuildString = jsonObject["builds"][0]["state"];
 
             if(estadoBuildString == "created") {            
-                return EstadoBuildEnum::Creado;               
+                return EstadoBuildEnum::EnCurso;               
             } else if(estadoBuildString == "started") {
                 return EstadoBuildEnum::EnCurso;    
             } else if(estadoBuildString == "failed") {
