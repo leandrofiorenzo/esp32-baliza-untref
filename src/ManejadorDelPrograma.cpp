@@ -21,14 +21,9 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     }
 };
 
-void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *asd) {  
+void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI) {  
     delete servidorDeIntegracionContinuaStrategy;
-    servidorDeIntegracionContinuaStrategy = asd;    
-    /*if(ci == 1) {
-        servidorDeIntegracionContinuaStrategy = new TravisStrategy();
-    } else {
-        servidorDeIntegracionContinuaStrategy = new StrategyFicticia();
-    }*/
+    servidorDeIntegracionContinuaStrategy = servidorCI;    
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *ssid, const char *passphrase) {

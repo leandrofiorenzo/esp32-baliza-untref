@@ -1,5 +1,13 @@
 #include <unity.h>
 
+void setup () {
+    
+}
+
+void loop() {
+
+}
+
 /* Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado exitoso 
 Cuando haya un push al repositorio y el estado del build sea exitoso 
 Entonces el ESP32 debe permanecer en estado exitoso (led verde)*/
@@ -30,8 +38,15 @@ void testUltimoBuildExitosoConPushFallidoCambiaEstadoAFallido(void) {
 
 int main(int argc, char **argv) {
     UNITY_BEGIN();
-    //RUN_TEST(test_cambio_estado_exitoso_a_fallido);
+
+    RUN_TEST(testUltimoBuildExitosoConPushExitosoNoCambiaEstado);
+    RUN_TEST(testUltimoBuildFallidoConPushFallidoNoCambiaEstado);
+    RUN_TEST(testUltimoBuildFallidoConPushExitosoCambiaEstadoAExitoso);
+    RUN_TEST(testUltimoBuildExitosoConPushFallidoCambiaEstadoAFallido);
+
     UNITY_END();
 
     return 0;
 }
+
+

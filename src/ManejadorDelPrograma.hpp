@@ -10,6 +10,6 @@ class ManejadorDelPrograma {
     public: 
         ManejadorDelPrograma();
         void ejecutarRutinaDeVerificacion();
-        void definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *asd);
+        void definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI);
         void establecerConexionWiFi(const char *ssid, const char *passphrase);
 };
