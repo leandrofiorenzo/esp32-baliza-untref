@@ -5,6 +5,7 @@ ControladorDeWifi::ControladorDeWifi() {
 };
 
 void ControladorDeWifi::establecerConexionWiFi(char *ssid, char *passphrase) {
+    WiFi.disconnect();
     WiFi.begin(ssid, passphrase);
     while (WiFi.status() != WL_CONNECTED) {
         Serial.print("Se intento conectar y devolvió el estado: ");
