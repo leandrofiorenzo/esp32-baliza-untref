@@ -3,3 +3,7 @@
 ServidorIntegracionContinuaStrategy::ServidorIntegracionContinuaStrategy() {
 
 };
+
+ServidorIntegracionContinuaStrategy::~ServidorIntegracionContinuaStrategy() {
+    
+};

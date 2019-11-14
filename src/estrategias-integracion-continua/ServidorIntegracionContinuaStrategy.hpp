@@ -8,6 +8,7 @@
 class ServidorIntegracionContinuaStrategy {
     public: 
         ServidorIntegracionContinuaStrategy();
+        virtual ~ServidorIntegracionContinuaStrategy();
         virtual EstadoBuildEnum obtenerEstadoUltimoBuild() = 0;
 };
 

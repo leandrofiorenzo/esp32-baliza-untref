@@ -4,7 +4,7 @@ ControladorDeWifi::ControladorDeWifi() {
 
 };
 
-void ControladorDeWifi::establecerConexionWiFi(char *ssid, char *passphrase) {
+void ControladorDeWifi::establecerConexionWiFi(const char *ssid, const char *passphrase) {
     WiFi.disconnect();
     WiFi.begin(ssid, passphrase);
     while (WiFi.status() != WL_CONNECTED) {
@@ -25,7 +25,9 @@ const char* ControladorDeWifi::obtenerEstadoDeLaConexion(wl_status_t status) {
     case WL_CONNECT_FAILED: return "WL_CONNECT_FAILED";
     case WL_CONNECTION_LOST: return "WL_CONNECTION_LOST";
     case WL_DISCONNECTED: return "WL_DISCONNECTED";
+    default: return "NO SE";
   }
+  return "NO SE";  
 }
 
 boolean ControladorDeWifi::estaConectado() {

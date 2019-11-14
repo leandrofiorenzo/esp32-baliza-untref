@@ -3,7 +3,7 @@
 class ControladorDeWifi {
     public:
         ControladorDeWifi();
-        void establecerConexionWiFi(char *ssid, char *passphrase);      
+        void establecerConexionWiFi(const char *ssid, const char *passphrase);      
         boolean estaConectado();
         const char* obtenerEstadoDeLaConexion(wl_status_t status);
 };

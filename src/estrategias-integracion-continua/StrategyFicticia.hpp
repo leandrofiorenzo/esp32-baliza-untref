@@ -3,5 +3,6 @@
 class StrategyFicticia : public ServidorIntegracionContinuaStrategy {
     public:      
         StrategyFicticia();
+        virtual ~StrategyFicticia();
         EstadoBuildEnum obtenerEstadoUltimoBuild();
 };

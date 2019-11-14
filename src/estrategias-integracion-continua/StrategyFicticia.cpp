@@ -6,6 +6,10 @@ StrategyFicticia::StrategyFicticia() {
 
 };
 
+StrategyFicticia::~StrategyFicticia() {
+
+};
+
 EstadoBuildEnum StrategyFicticia::obtenerEstadoUltimoBuild() {
     return EstadoBuildEnum::EnCurso;
 };

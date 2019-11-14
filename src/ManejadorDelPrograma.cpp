@@ -21,14 +21,16 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     }
 };
 
-void ManejadorDelPrograma::definirServidorDeIntegracionContinua(int ci) {
-    if(ci == 1) {
+void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *asd) {  
+    delete servidorDeIntegracionContinuaStrategy;
+    servidorDeIntegracionContinuaStrategy = asd;    
+    /*if(ci == 1) {
         servidorDeIntegracionContinuaStrategy = new TravisStrategy();
     } else {
         servidorDeIntegracionContinuaStrategy = new StrategyFicticia();
-    }
+    }*/
 };
 
-void ManejadorDelPrograma::establecerConexionWiFi(char *ssid, char *passphrase) {
+void ManejadorDelPrograma::establecerConexionWiFi(const char *ssid, const char *passphrase) {
     controladorDeWifi.establecerConexionWiFi(ssid, passphrase);
 }

@@ -2,6 +2,7 @@
 
 class TravisStrategy : public ServidorIntegracionContinuaStrategy {
     public: 
-        TravisStrategy();      
+        TravisStrategy(); 
+        virtual ~TravisStrategy();   
         EstadoBuildEnum obtenerEstadoUltimoBuild();
 };

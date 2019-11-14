@@ -7,6 +7,10 @@ TravisStrategy::TravisStrategy() {
 
 };
 
+TravisStrategy::~TravisStrategy() {
+
+};
+
 EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
     HTTPClient clienteHttp;
 
