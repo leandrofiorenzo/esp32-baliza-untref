@@ -66,9 +66,9 @@ La baliza deberá conectarse al servidor del sistema de Integración Continua me
 
 ### Criterios de aceptación:
 
-+ Dado un ESP32 encendido
-  Cuando se le asigna un servidor de Integracion Continua
-  Entonces el ESP32 se debe conectar con el servidor por WIFI
++ Dado un ESP32 encendido        
+  Cuando se le asigna un servidor de Integracion Continua      
+  Entonces el ESP32 se debe conectar con el servidor por WIFI    
 
 ## 5. Aviso de desconexión  
 La baliza deberá destacar su desconexión con un color distinto a los demás, por ejemplo, Naranja.
