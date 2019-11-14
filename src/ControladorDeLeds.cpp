@@ -33,6 +33,12 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
     }
 };
 
+void ControladorDeLeds::configurarPaletaColoresLed(int ledRojo, int ledAzul, int ledVerde){
+    digitalWrite(23, ledRojo);
+    digitalWrite(22, ledVerde);
+    digitalWrite(19, ledAzul);
+};
+
 void ControladorDeLeds::apagarTodosLosLeds() {
     digitalWrite(18, LOW);
     digitalWrite(19, LOW);
@@ -40,4 +46,5 @@ void ControladorDeLeds::apagarTodosLosLeds() {
     digitalWrite(22, LOW);
     digitalWrite(23, LOW);
     digitalWrite(15, LOW);
-}
+};
+

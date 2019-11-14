@@ -79,7 +79,6 @@ La baliza deberá destacar su desconexión con un color distinto a los demás, p
   Cuando se pierda la conexion por WiFi    
   Entonces el ESP32 debe encender el led naranja de la baliza  
 
-
 ## 6. Configuración de WiFi     
 La baliza deberá permitir configurar la red y credenciales para conectarse a WiFi.
 

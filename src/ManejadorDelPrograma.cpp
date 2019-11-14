@@ -29,4 +29,4 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegrac
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
     controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
-}
+};
