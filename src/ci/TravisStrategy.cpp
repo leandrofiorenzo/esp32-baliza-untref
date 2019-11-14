@@ -25,7 +25,8 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
             String estadoBuildString = jsonObject["builds"][0]["state"];
 
             if(estadoBuildString == "created") {
-                return EstadoBuildEnum::Creado;               
+                /*return EstadoBuildEnum::Creado;*/               
+                return EstadoBuildEnum::EnCurso;               
             } else if(estadoBuildString == "started") {
                 return EstadoBuildEnum::EnCurso;    
             } else if(estadoBuildString == "failed") {
@@ -33,12 +34,14 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
             } else if(estadoBuildString == "passed") {
                 return EstadoBuildEnum::Exitoso;
             } else {
-                return EstadoBuildEnum::Desconocido;
+                /*return EstadoBuildEnum::Desconocido;*/
+                return EstadoBuildEnum::EnCurso;
             }
         } else {
             Serial.print("El request devolvio el status code: ");
             Serial.println(httpCode);           
-            return EstadoBuildEnum::Desconocido;
+            /*return EstadoBuildEnum::Desconocido;*/
+            return EstadoBuildEnum::EnCurso;
         }
     } else {
         Serial.printf("El request devolvio el status code: %s\n", clienteHttp.errorToString(httpCode).c_str());
@@ -46,6 +49,7 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
 
     clienteHttp.end();
 
-    return EstadoBuildEnum::Desconocido;
+    /*return EstadoBuildEnum::Desconocido;*/
+    return EstadoBuildEnum::EnCurso;
 };
 

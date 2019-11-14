@@ -10,10 +10,13 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     if(controladorDeWifi.estaConectado()) {
-        //1) Obtenemos el estado del ultimo build en el CI que corresponda.
+        //1) Blanqueamos el estado actual y encendemos el led asociado a en curso
+        controladorDeLeds.iniciarAnalisisBuild();
+        
+        //2) Obtenemos el estado del ultimo build en el CI que corresponda.
         EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
 
-        //2) Prendemos el led que corresponda.
+        //3) Prendemos el led que corresponda.
         controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
     } else {
         Serial.println("No hay conexión. Reintentando...");

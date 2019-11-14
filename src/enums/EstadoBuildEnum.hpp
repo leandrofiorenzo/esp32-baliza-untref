@@ -6,7 +6,8 @@ enum EstadoBuildEnum {
     EnCurso,
     Exitoso,
     Fallido,
-    Desconocido
+    /*Desconocido*/
+    Desconexion
 };
 
 #endif
