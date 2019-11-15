@@ -19,13 +19,16 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         Serial.println("Estoy Desconectado de WiFi");
         digitalWrite(19, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
-        digitalWrite(21, HIGH);
+        //digitalWrite(21, HIGH);
+        configurarPaletaColoresLed(255, 15, 255);
         Serial.println("Estoy EnCurso");   
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
-        digitalWrite(22, HIGH);
+        //digitalWrite(22, HIGH);
+        configurarPaletaColoresLed(0, 0, 255);
         Serial.println("Estoy Exitoso");   
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
-        digitalWrite(23, HIGH);
+        //digitalWrite(23, HIGH);
+        configurarPaletaColoresLed(255, 0, 0);
         Serial.println("Estoy Fallido");   
     } else {
         digitalWrite(15, HIGH);
@@ -36,7 +39,7 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
 void ControladorDeLeds::configurarPaletaColoresLed(int ledRojo, int ledAzul, int ledVerde){
     digitalWrite(23, ledRojo);
     digitalWrite(22, ledVerde);
-    digitalWrite(19, ledAzul);
+    digitalWrite(21, ledAzul);
 };
 
 void ControladorDeLeds::apagarTodosLosLeds() {
