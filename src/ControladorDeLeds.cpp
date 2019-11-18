@@ -21,11 +21,11 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
         //digitalWrite(21, HIGH);
         Serial.println("Estoy EnCurso");   
-        configurarPaletaColoresLed(LOW, HIGH, HIGH);
+        configurarPaletaColoresLed(HIGH, HIGH, LOW);
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
         Serial.println("Estoy Exitoso");   
-        configurarPaletaColoresLed(LOW, LOW, HIGH);
+        configurarPaletaColoresLed(LOW, HIGH, LOW);
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
         //digitalWrite(23, HIGH);
         Serial.println("Estoy Fallido");   
