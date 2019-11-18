@@ -20,8 +20,12 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         digitalWrite(19, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
         //digitalWrite(21, HIGH);
-        Serial.println("Estoy EnCurso");   
-        configurarPaletaColoresLed(HIGH, HIGH, LOW);
+        Serial.println("Estoy EnCurso");
+        configurarPaletaColoresLed(HIGH, 10, LOW);
+        delay(200);
+        configurarPaletaColoresLed(LOW, LOW, LOW);
+        delay(200);
+        configurarPaletaColoresLed(HIGH, 10, LOW); 
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
         Serial.println("Estoy Exitoso");   

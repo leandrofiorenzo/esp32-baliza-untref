@@ -14,8 +14,11 @@ TravisStrategy::~TravisStrategy() {
 EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
     HTTPClient clienteHttp;
 
-    clienteHttp.begin("https://api.travis-ci.org/builds?limit=1");
-    clienteHttp.addHeader("Authorization", "token zxiel_jS6Xaaok3zgnHGzQ"); 
+    String url = "https://api.travis-ci.org/repo/" + repositorioId + "/builds?limit=1";
+    String token = "token " + tokenAcceso;
+
+    clienteHttp.begin(url);
+    clienteHttp.addHeader("Authorization", token); 
     clienteHttp.addHeader("Travis-API-Version", "3"); 
 
     int httpCode = clienteHttp.GET();
@@ -53,3 +56,10 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
     return EstadoBuildEnum::Desconocido;
 };
 
+void TravisStrategy::definirTokenAcceso(String _tokenAccesso) {
+    tokenAcceso = _tokenAccesso;
+};
+
+void TravisStrategy::definirRepositorioId(String _repositorioId) {
+    repositorioId = _repositorioId;
+};

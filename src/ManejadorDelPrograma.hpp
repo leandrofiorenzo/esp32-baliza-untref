@@ -7,6 +7,7 @@ class ManejadorDelPrograma {
         ServidorIntegracionContinuaStrategy *servidorDeIntegracionContinuaStrategy;
         ControladorDeWifi controladorDeWifi;
         ControladorDeLeds controladorDeLeds;
+        long ultimaActualizacion = 0;
     public: 
         ManejadorDelPrograma();
         void ejecutarRutinaDeVerificacion();
