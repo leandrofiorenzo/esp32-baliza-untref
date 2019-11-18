@@ -9,8 +9,8 @@ ManejadorDelPrograma manejadorDelPrograma;
 
 void setup () {
     Serial.begin(115200);
-    const char* ssid = "Redmi";
-    const char* passphrase = "lfiorenzo123";
+    const char* ssid = "Fibertel WiFi NUMERO 2";
+    const char* passphrase = "00416040571";
     manejadorDelPrograma.establecerConexionWiFi(ssid, passphrase);  
 }
 

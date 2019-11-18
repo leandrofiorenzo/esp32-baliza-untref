@@ -33,7 +33,7 @@ void testUltimoBuildFallidoConPushExitosoCambiaEstadoAExitoso(void) {
 Cuando haya un push al repositorio y el estado del build sea exitoso 
 Entonces el ESP32 debe cambiar el estado a exitoso (debe encender el led verde y apagar los demas)*/
 void testUltimoBuildExitosoConPushFallidoCambiaEstadoAFallido(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+    TEST_ASSERT_EQUAL(2, 3);
 }
 
 int main(int argc, char **argv) {

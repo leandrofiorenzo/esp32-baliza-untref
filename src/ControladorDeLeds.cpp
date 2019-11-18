@@ -20,23 +20,23 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         digitalWrite(19, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
         //digitalWrite(21, HIGH);
-        configurarPaletaColoresLed(255, 15, 255);
         Serial.println("Estoy EnCurso");   
+        configurarPaletaColoresLed(LOW, HIGH, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
-        configurarPaletaColoresLed(0, 0, 255);
         Serial.println("Estoy Exitoso");   
+        configurarPaletaColoresLed(LOW, LOW, HIGH);
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
         //digitalWrite(23, HIGH);
-        configurarPaletaColoresLed(255, 0, 0);
         Serial.println("Estoy Fallido");   
+        configurarPaletaColoresLed(HIGH, LOW, LOW);
     } else {
         digitalWrite(15, HIGH);
         Serial.println("Estoy Desconocido");
     }
 };
 
-void ControladorDeLeds::configurarPaletaColoresLed(int ledRojo, int ledAzul, int ledVerde){
+void ControladorDeLeds::configurarPaletaColoresLed(uint8_t ledRojo, uint8_t ledVerde, uint8_t ledAzul) {
     digitalWrite(23, ledRojo);
     digitalWrite(22, ledVerde);
     digitalWrite(21, ledAzul);
