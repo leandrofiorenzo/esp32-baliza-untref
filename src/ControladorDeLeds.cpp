@@ -33,7 +33,7 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         configurarPaletaColoresLed(15, HIGH, 0); 
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
-        Serial.println("Estoy Exitoso");   
+        Serial.println("Exitoso");   
         configurarPaletaColoresLed(LOW, HIGH, LOW);
     } else if(estadoBuild == EstadoBuildEnum::Fallido) {
         //digitalWrite(23, HIGH);
