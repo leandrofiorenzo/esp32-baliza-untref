@@ -11,8 +11,10 @@ ManejadorDelPrograma manejadorDelPrograma;
 
 void setup () {
     Serial.begin(115200);
-    const char* ssid = "Fibertel WiFi NUMERO 2";
-    const char* passphrase = "00416040571";
+    //const char* ssid = "Fibertel WiFi NUMERO 2";
+    //const char* passphrase = "00416040571";
+    const char* ssid = "WIFISTI";
+    const char* passphrase = "solu*1234";
     manejadorDelPrograma.establecerConexionWiFi(ssid, passphrase);
 }
 
