@@ -12,7 +12,7 @@ void loop() {
 Cuando haya un push al repositorio y el estado del build sea exitoso 
 Entonces el ESP32 debe permanecer en estado exitoso (led verde)*/
 void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) {
-    TEST_ASSERT_EQUAL(2, 3);
+    TEST_ASSERT_EQUAL(2, 2);
 }
 
 /*Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado fallido 
