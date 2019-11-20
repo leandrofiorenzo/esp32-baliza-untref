@@ -40,7 +40,7 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
             } else if(estadoBuildString == "passed") {
                 return EstadoBuildEnum::Exitoso;
             } else {
-                return EstadoBuildEnum::Desconexion;
+                return EstadoBuildEnum::Desconocido;
             }
         } else {
             Serial.print("El request devolvio el status code: ");

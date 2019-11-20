@@ -9,7 +9,10 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 };
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
-    if(controladorDeWifi.estaConectado()) {        
+    if(controladorDeWifi.estaConectado()) {    
+
+        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::ConectadoWIFI);
+
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
         EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
         
@@ -18,7 +21,7 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
  
     }  else {
         Serial.println("No hay conexión. Reintentando...");
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::Desconexion);
+        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::DesconexionWIFI);
         controladorDeWifi.establecerConexionWiFi();
     }      
 };

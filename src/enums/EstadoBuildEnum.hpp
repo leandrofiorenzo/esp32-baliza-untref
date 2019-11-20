@@ -6,8 +6,9 @@ enum EstadoBuildEnum {
     EnCurso,
     Exitoso,
     Fallido,
-    Desconexion,
-    Desconocido
+    DesconexionWIFI,
+    Desconocido,
+    ConectadoWIFI
 };
 
 #endif
