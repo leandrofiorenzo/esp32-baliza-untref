@@ -36,11 +36,11 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
         configurarPaletaColoresLedEstadoBuild(LOW, LOW, LOW);
         delay(200);
         configurarPaletaColoresLedEstadoBuild(LOW, LOW, HIGH);*/
-        configurarPaletaColoresLedEstadoBuild(HIGH, HIGH, 0);
+        configurarPaletaColoresLedEstadoBuild(HIGH, 15, 0);
         delay(200);
         configurarPaletaColoresLedEstadoBuild(LOW, LOW, LOW);
         delay(200);
-        configurarPaletaColoresLedEstadoBuild(HIGH, HIGH, 0); 
+        configurarPaletaColoresLedEstadoBuild(HIGH, 15, 0); 
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
         Serial.println("Exitoso");   
