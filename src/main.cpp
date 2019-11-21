@@ -22,7 +22,7 @@ void setup () {
 
 void loop () {
     //TRAVIS  
-    /*TravisStrategy *travisStrategy = new TravisStrategy();
+    TravisStrategy *travisStrategy = new TravisStrategy();
 
     const char* tokenAccesso = "zxiel_jS6Xaaok3zgnHGzQ";
     travisStrategy->definirTokenAcceso(tokenAccesso);
@@ -30,10 +30,10 @@ void loop () {
     const char* repositorioId = "26796622";
     travisStrategy->definirRepositorioId(repositorioId);
 
-    manejadorDelPrograma.definirServidorDeIntegracionContinua(travisStrategy);*/
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(travisStrategy);
 
     //CircleCI
-    CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
-    manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+    //CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
+    //manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
     manejadorDelPrograma.ejecutarRutinaDeVerificacion();
 }
