@@ -9,6 +9,8 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 };
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
+    
+
     if(controladorDeWifi.estaConectado()) {    
 
         controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
@@ -25,6 +27,13 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
         controladorDeWifi.establecerConexionWiFi();
     }      
 };
+
+void ManejadorDelPrograma::ejecutarRutinaDeVerificacionesDeNovedades() {
+    String novedadTipo = controladorDeBluetooth.obtenerTipoDeNovedad();
+    if(novedadTipo == "WIFI") {
+        establecerConexionWiFi(controladorDeBluetooth.obtenerNombreRed(), controladorDeBluetooth.obtenerContrasenaRed());
+    } 
+}
 
 void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI) {  
     delete servidorDeIntegracionContinuaStrategy;
