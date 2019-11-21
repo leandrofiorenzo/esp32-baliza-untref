@@ -11,19 +11,23 @@ ControladorDeLeds::ControladorDeLeds() {
     pinMode(35, OUTPUT);
 }
 
+void ControladorDeLeds::prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum estadoConexion) {
+    if(estadoConexion == EstadoBuildEnum::ConectadoWIFI) {
+        Serial.println("Estoy Conectado a WiFi");
+        //digitalWrite(19, HIGH);
+        configurarPaletaColoresLedEstadoConexion(19,18);
+    } else if(estadoConexion == EstadoBuildEnum::DesconexionWIFI) {
+        Serial.println("Estoy Desconectado de WiFi");
+        //digitalWrite(19, HIGH);
+        configurarPaletaColoresLedEstadoConexion(18,19);
+    }
+}
+
 void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild) {
     apagarTodosLosLeds();
     if(estadoBuild == EstadoBuildEnum::Creado) {
         Serial.println("Estoy Creado");
         digitalWrite(18, HIGH);
-    } else if(estadoBuild == EstadoBuildEnum::ConectadoWIFI) {
-        Serial.println("Estoy Conectado a WiFi");
-        //digitalWrite(19, HIGH);
-        configurarPaletaColoresLedEstadoConexion(34,35);
-    } else if(estadoBuild == EstadoBuildEnum::DesconexionWIFI) {
-        Serial.println("Estoy Desconectado de WiFi");
-        //digitalWrite(19, HIGH);
-        configurarPaletaColoresLedEstadoConexion(35,34);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
         //digitalWrite(21, HIGH);
         Serial.println("Estoy EnCurso");

@@ -11,7 +11,7 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
     if(controladorDeWifi.estaConectado()) {    
 
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::ConectadoWIFI);
+        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
 
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
         EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
@@ -19,11 +19,9 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
         //2) Prendemos el led que corresponda.
         controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
 
-        delay(1000);
-
     }  else {
         Serial.println("No hay conexión. Reintentando...");
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::DesconexionWIFI);
+        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
         controladorDeWifi.establecerConexionWiFi();
     }      
 };
@@ -34,5 +32,6 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegrac
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
+    controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
     controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
 };
