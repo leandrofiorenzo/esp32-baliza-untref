@@ -18,7 +18,9 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
         
         //2) Prendemos el led que corresponda.
         controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
- 
+
+        delay(1000);
+
     }  else {
         Serial.println("No hay conexión. Reintentando...");
         controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::DesconexionWIFI);
