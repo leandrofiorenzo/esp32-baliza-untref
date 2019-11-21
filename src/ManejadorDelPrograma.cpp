@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "ManejadorDelPrograma.hpp"
 #include "estrategias-integracion-continua/TravisStrategy.hpp"
-#include "estrategias-integracion-continua/StrategyFicticia.hpp"
+#include "estrategias-integracion-continua/CircleCIStrategy.hpp"
 #include "enums/EstadoBuildEnum.hpp"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
