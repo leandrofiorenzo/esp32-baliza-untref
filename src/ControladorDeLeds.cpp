@@ -7,8 +7,20 @@ ControladorDeLeds::ControladorDeLeds() {
     pinMode(21, OUTPUT); 
     pinMode(22, OUTPUT);
     pinMode(23, OUTPUT);
-    pinMode(34, OUTPUT);
-    pinMode(35, OUTPUT);
+    //pinMode(34, OUTPUT);
+    //pinMode(35, OUTPUT);
+}
+
+void ControladorDeLeds::prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum estadoConexion) {
+    if(estadoConexion == EstadoBuildEnum::ConectadoWIFI) {
+        Serial.println("Estoy Conectado a WiFi");
+        //digitalWrite(19, HIGH);
+        configurarPaletaColoresLedEstadoConexion(19,18);
+    } else if(estadoConexion == EstadoBuildEnum::DesconexionWIFI) {
+        Serial.println("Estoy Desconectado de WiFi");
+        //digitalWrite(19, HIGH);
+        configurarPaletaColoresLedEstadoConexion(18,19);
+    }
 }
 
 void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild) {
@@ -16,27 +28,19 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estado
     if(estadoBuild == EstadoBuildEnum::Creado) {
         Serial.println("Estoy Creado");
         digitalWrite(18, HIGH);
-    } else if(estadoBuild == EstadoBuildEnum::ConectadoWIFI) {
-        Serial.println("Estoy Conectado a WiFi");
-        //digitalWrite(19, HIGH);
-        configurarPaletaColoresLedEstadoConexion(34,35);
-    } else if(estadoBuild == EstadoBuildEnum::DesconexionWIFI) {
-        Serial.println("Estoy Desconectado de WiFi");
-        //digitalWrite(19, HIGH);
-        configurarPaletaColoresLedEstadoConexion(35,34);
     } else if(estadoBuild == EstadoBuildEnum::EnCurso) {
         //digitalWrite(21, HIGH);
         Serial.println("Estoy EnCurso");
-        /*configurarPaletaColoresLedEstadoBuild(LOW, LOW, HIGH);
+        configurarPaletaColoresLedEstadoBuild(LOW, LOW, HIGH);
         delay(200);
         configurarPaletaColoresLedEstadoBuild(LOW, LOW, LOW);
         delay(200);
-        configurarPaletaColoresLedEstadoBuild(LOW, LOW, HIGH);*/
-        configurarPaletaColoresLedEstadoBuild(15, HIGH, 0);
+        configurarPaletaColoresLedEstadoBuild(LOW, LOW, HIGH);
+        /*configurarPaletaColoresLedEstadoBuild(HIGH, 15, 0);
         delay(200);
         configurarPaletaColoresLedEstadoBuild(LOW, LOW, LOW);
         delay(200);
-        configurarPaletaColoresLedEstadoBuild(15, HIGH, 0); 
+        configurarPaletaColoresLedEstadoBuild(HIGH, 15, 0); */
     } else if(estadoBuild == EstadoBuildEnum::Exitoso) {
         //digitalWrite(22, HIGH);
         Serial.println("Exitoso");   
@@ -64,8 +68,8 @@ void ControladorDeLeds::configurarPaletaColoresLedEstadoConexion(int pinEncendid
 }
 
 void ControladorDeLeds::apagarTodosLosLeds() {
-    digitalWrite(18, LOW);
-    digitalWrite(19, LOW);
+    //digitalWrite(18, LOW);
+    //digitalWrite(19, LOW);
     digitalWrite(21, LOW);
     digitalWrite(22, LOW);
     digitalWrite(23, LOW);

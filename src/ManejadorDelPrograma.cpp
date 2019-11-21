@@ -9,22 +9,31 @@ ManejadorDelPrograma::ManejadorDelPrograma() {
 };
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
+    
+
     if(controladorDeWifi.estaConectado()) {    
 
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::ConectadoWIFI);
+        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
 
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
         EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
         
         //2) Prendemos el led que corresponda.
         controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
- 
+
     }  else {
         Serial.println("No hay conexión. Reintentando...");
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(EstadoBuildEnum::DesconexionWIFI);
+        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
         controladorDeWifi.establecerConexionWiFi();
     }      
 };
+
+void ManejadorDelPrograma::ejecutarRutinaDeVerificacionesDeNovedades() {
+    String novedadTipo = controladorDeBluetooth.obtenerTipoDeNovedad();
+    if(novedadTipo == "WIFI") {
+        establecerConexionWiFi(controladorDeBluetooth.obtenerNombreRed(), controladorDeBluetooth.obtenerContrasenaRed());
+    } 
+}
 
 void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI) {  
     delete servidorDeIntegracionContinuaStrategy;
@@ -32,5 +41,6 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegrac
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
+    controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
     controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
 };
