@@ -7,8 +7,8 @@ ControladorDeLeds::ControladorDeLeds() {
     pinMode(21, OUTPUT); 
     pinMode(22, OUTPUT);
     pinMode(23, OUTPUT);
-    pinMode(34, OUTPUT);
-    pinMode(35, OUTPUT);
+    //pinMode(34, OUTPUT);
+    //pinMode(35, OUTPUT);
 }
 
 void ControladorDeLeds::prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum estadoConexion) {
@@ -68,8 +68,8 @@ void ControladorDeLeds::configurarPaletaColoresLedEstadoConexion(int pinEncendid
 }
 
 void ControladorDeLeds::apagarTodosLosLeds() {
-    digitalWrite(18, LOW);
-    digitalWrite(19, LOW);
+    //digitalWrite(18, LOW);
+    //digitalWrite(19, LOW);
     digitalWrite(21, LOW);
     digitalWrite(22, LOW);
     digitalWrite(23, LOW);
