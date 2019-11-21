@@ -21,7 +21,7 @@ void setup () {
 }
 
 void loop () {
-    //TRAVIS  
+    //TravisCI  
     TravisStrategy *travisStrategy = new TravisStrategy();
 
     const char* tokenAccesso = "zxiel_jS6Xaaok3zgnHGzQ";
@@ -35,5 +35,7 @@ void loop () {
     //CircleCI
     //CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
     //manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+
+    //No comentar esta linea
     manejadorDelPrograma.ejecutarRutinaDeVerificacion();
 }
