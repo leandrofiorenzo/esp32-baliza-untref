@@ -2,7 +2,6 @@
 #include "ControladorDeLeds.hpp"
 
 ControladorDeLeds::ControladorDeLeds() {
-    //pinMode(15, OUTPUT);
     pinMode(18, OUTPUT);
     pinMode(19, OUTPUT);
     pinMode(21, OUTPUT); 
