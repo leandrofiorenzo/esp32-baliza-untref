@@ -19,7 +19,7 @@ void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) {
 Cuando haya un push al repositorio y el estado del build sea fallido 
 Entonces el ESP32 debe permanecer en estado fallido (led rojo)*/
 void testUltimoBuildFallidoConPushFallidoNoCambiaEstado(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+    TEST_ASSERT_EQUAL(2, 3);
 }
 
 /*Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado exitoso 
