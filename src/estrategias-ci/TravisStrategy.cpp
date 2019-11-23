@@ -12,6 +12,7 @@ TravisStrategy::~TravisStrategy() {
 };
 
 EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
+    Serial.println("Soy TravisCI");
     HTTPClient clienteHttp;
 
     String url = "https://api.travis-ci.org/repo/" + repositorioId + "/builds?limit=1";

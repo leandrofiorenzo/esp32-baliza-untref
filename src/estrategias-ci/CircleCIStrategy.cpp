@@ -12,11 +12,13 @@ CircleCIStrategy::~CircleCIStrategy() {
 };
 
 EstadoBuildEnum CircleCIStrategy::obtenerEstadoUltimoBuild() {
+    Serial.println("Soy CircleCI");
     HTTPClient clienteHttp;
 
-    String url = "https://circleci.com/api/v1.1/project/github/leandrofiorenzo/sample-repository?circle-token=8761a13e3eb7b85dd360b5b7b85bd63c9f8841bf&limit=3";
+    String url = "https://circleci.com/api/v1.1/project/github/leandrofiorenzo/" + repositorioId + "?circle-token=" + tokenAcceso + "&limit=1";
+    
     clienteHttp.begin(url);
-    clienteHttp.addHeader("Accept", "application/json");
+    clienteHttp.addHeader("Accept", "application/json"); 
 
     int httpCode = clienteHttp.GET();
     if(httpCode > 0) {
@@ -64,3 +66,10 @@ EstadoBuildEnum CircleCIStrategy::obtenerEstadoUltimoBuild() {
     return EstadoBuildEnum::Desconocido;
 };
 
+void CircleCIStrategy::definirTokenAcceso(String _tokenAccesso) {
+    tokenAcceso = _tokenAccesso;
+};
+
+void CircleCIStrategy::definirRepositorioId(String _repositorioId) {
+    repositorioId = _repositorioId;
+};

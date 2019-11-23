@@ -1,7 +1,7 @@
 /*#include "enums/EstadoBuildEnum.hpp"
-#include "estrategias-integracion-continua/ServidorIntegracionContinuaStrategy.hpp"
+#include "estrategias-ci/ServidorCIStrategy"
 
-class MockBuildFallido : public ServidorIntegracionContinuaStrategy {
+class MockBuildFallido : public ServidorCIStrategy {
     public:
         EstadoBuildEnum obtenerEstadoUltimoBuild() {
             return EstadoBuildEnum::Fallido;

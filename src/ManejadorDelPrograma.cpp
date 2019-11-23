@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "ManejadorDelPrograma.hpp"
-#include "estrategias-integracion-continua/TravisStrategy.hpp"
-#include "estrategias-integracion-continua/CircleCIStrategy.hpp"
+#include "estrategias-ci/ServidorCIStrategy.hpp"
 #include "enums/EstadoBuildEnum.hpp"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
@@ -14,7 +13,7 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
         controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
 
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
-        EstadoBuildEnum estadoBuild = servidorDeIntegracionContinuaStrategy->obtenerEstadoUltimoBuild();  
+        EstadoBuildEnum estadoBuild = servidorCI->obtenerEstadoUltimoBuild();  
         
         //2) Prendemos el led que corresponda.
         controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
@@ -26,9 +25,9 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     }      
 };
 
-void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorIntegracionContinuaStrategy *servidorCI) {  
-    delete servidorDeIntegracionContinuaStrategy;
-    servidorDeIntegracionContinuaStrategy = servidorCI;    
+void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorCIStrategy *_servidorCI) {  
+    delete servidorCI;
+    servidorCI = _servidorCI;    
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {

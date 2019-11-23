@@ -1,39 +1,119 @@
 #include <Arduino.h>
+#include <ArduinoJson.h>
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
 
 #include "ManejadorDelPrograma.hpp"
-
-#include "estrategias-integracion-continua/TravisStrategy.hpp"
-#include "estrategias-integracion-continua/CircleCIStrategy.hpp"
+#include "estrategias-ci/ServidorCIStrategy.hpp"
+#include "estrategias-ci/TravisStrategy.hpp"
+#include "estrategias-ci/CircleCIStrategy.hpp"
 
 ManejadorDelPrograma manejadorDelPrograma;
+WebServer webServer(80);
 
-void setup () {
-    Serial.begin(115200);
-    const char* ssid = "Fibertel WiFi NUMERO 2";
-    const char* passphrase = "00416040571";
-    //const char* ssid = "WiFiSTI";
-    //const char* passphrase = "solu*1234";
-    //const char* ssid = "wifi18878";
-    //const char* passphrase = "51883488";
-    manejadorDelPrograma.establecerConexionWiFi(ssid, passphrase);
+const char* ssid = "Fibertel WiFi304 2.4GHz";
+const char* password = "0141695284";
+
+void actualizacionDeWiFiRequest() {  
+    if (!webServer.hasArg("plain")) { 
+        webServer.send(200);
+        return;
+    }
+ 
+    String jsonBody = webServer.arg("plain");
+    Serial.println("Original: ");
+    Serial.println(jsonBody);
+ 
+    DynamicJsonDocument dynamicJsonDocument(1024);
+    deserializeJson(dynamicJsonDocument, jsonBody);   
+    JsonObject jsonObject = dynamicJsonDocument.as<JsonObject>();
+    const char* redNueva = jsonObject["username"];
+    const char* contrasenaNueva = jsonObject["password"];
+
+    webServer.sendHeader("Access-Control-Allow-Origin", "*");
+    webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+    webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    webServer.send(200);
+
+    manejadorDelPrograma.establecerConexionWiFi(redNueva, contrasenaNueva);
 }
 
-void loop () {
-    //TravisCI  
-    TravisStrategy *travisStrategy = new TravisStrategy();
-
-    const char* tokenAccesso = "zxiel_jS6Xaaok3zgnHGzQ";
-    travisStrategy->definirTokenAcceso(tokenAccesso);
+void actualizacionDeServidorRequest() {
+    if (!webServer.hasArg("plain")) { 
+        webServer.send(200);
+        return;
+    }
+ 
+    String jsonBody = webServer.arg("plain");
+    Serial.println("Original: ");
+    Serial.println(jsonBody);
+ 
+    DynamicJsonDocument dynamicJsonDocument(1024);
+    deserializeJson(dynamicJsonDocument, jsonBody);   
+    JsonObject jsonObject = dynamicJsonDocument.as<JsonObject>();
     
-    const char* repositorioId = "26796622";
-    travisStrategy->definirRepositorioId(repositorioId);
+    String servidorCIN = jsonObject["servidorCI"];
+    String tokenAccesoN = jsonObject["tokenAcceso"];
+    String repositorioIdN = jsonObject["repositorioId"];
 
-    manejadorDelPrograma.definirServidorDeIntegracionContinua(travisStrategy);
+    if(servidorCIN == "TravisCI") { 
+        TravisStrategy *travisStrategy = new TravisStrategy();
+        travisStrategy->definirTokenAcceso(tokenAccesoN);
+        travisStrategy->definirRepositorioId(repositorioIdN);
+        manejadorDelPrograma.definirServidorDeIntegracionContinua(travisStrategy);
+    } else if(servidorCIN == "CircleCI") {
+        CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
+        circleCIStrategy->definirTokenAcceso(tokenAccesoN);
+        circleCIStrategy->definirRepositorioId(repositorioIdN);
+        manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+    }
 
-    //CircleCI
-    //CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
-    //manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+    webServer.sendHeader("Access-Control-Allow-Origin", "*");
+    webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+    webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    webServer.send(200);
+}
 
-    //No comentar esta linea
+void setup() {
+    Serial.begin(115200);
+    
+    WiFi.mode(WIFI_STA);
+
+    manejadorDelPrograma.establecerConexionWiFi(ssid, password);
+
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+
+    if (MDNS.begin("esp32")) {
+        Serial.println("MDNS responder started");
+    }
+
+    webServer.on("/", HTTP_OPTIONS, []() {
+        webServer.sendHeader("Access-Control-Max-Age", "10000");
+        webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+        webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        webServer.send(200, "text/plain", "");
+    });
+
+    webServer.on("/wifi", HTTP_POST, actualizacionDeWiFiRequest);
+    webServer.on("/servidor", HTTP_POST, actualizacionDeServidorRequest);
+    webServer.begin();
+    
+    Serial.println("HTTP server started");
+
+    //Por defecto podemos definir CircleCI
+    CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
+    const char* tokenAcceso1 = "8761a13e3eb7b85dd360b5b7b85bd63c9f8841bf";
+    circleCIStrategy->definirTokenAcceso(tokenAcceso1);
+    const char* repositorioId1 = "sample-repository";
+    circleCIStrategy->definirRepositorioId(repositorioId1);
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+}
+
+void loop() {
     manejadorDelPrograma.ejecutarRutinaDeVerificacion();
+
+    webServer.handleClient();
 }
