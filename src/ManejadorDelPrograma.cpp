@@ -1,11 +1,11 @@
 #include "ManejadorDelPrograma.h"
 
-ManejadorDelPrograma::ManejadorDelPrograma() {
-
+ManejadorDelPrograma::ManejadorDelPrograma(ControladorDeWifi *_controladorDeWifi) {
+    controladorDeWifi = _controladorDeWifi;
 };
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
-    if(controladorDeWifi.estaConectado()) {    
+    if(controladorDeWifi->estaConectado()) {    
 
         controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
 
@@ -18,7 +18,7 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
     }  else {
         Serial.println("No hay conexión. Reintentando...");
         controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
-        controladorDeWifi.establecerConexionWiFi();
+        controladorDeWifi->establecerConexionWiFi();
     }      
 };
 
@@ -29,7 +29,7 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorCIStrate
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
     controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
-    controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
+    controladorDeWifi->cambiarCredencialesConexion(nombreRed, contrasenaRed);
 };
 
 int ManejadorDelPrograma::dameNumero() {

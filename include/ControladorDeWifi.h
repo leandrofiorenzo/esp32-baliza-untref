@@ -1,6 +1,9 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
+#ifndef ControladorDeWifi_H
+#define ControladorDeWifi_H
+
 class ControladorDeWifi {
     private:
         const char *nombreRed;
@@ -13,3 +16,5 @@ class ControladorDeWifi {
         const char* obtenerEstadoDeLaConexion(wl_status_t status);
         void notificarIPDispositivo();
 };
+
+#endif

@@ -29,6 +29,7 @@ void ControladorDeWifi::establecerConexionWiFi() {
 };
 
 boolean ControladorDeWifi::estaConectado() {
+    Serial.println("ENTRE POR ACA");
     return WiFi.status() ==  WL_CONNECTED;
 };
 

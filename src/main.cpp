@@ -7,12 +7,15 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
+#include "ControladorDeWifi.h"
 #include "ManejadorDelPrograma.h"
 #include "ServidorCIStrategy.h"
 #include "TravisStrategy.h"
 #include "CircleCIStrategy.h"
 
-ManejadorDelPrograma manejadorDelPrograma;
+ControladorDeWifi *controladorDeWifi = new ControladorDeWifi();
+ManejadorDelPrograma manejadorDelPrograma(controladorDeWifi);
+
 WebServer webServer(80);
 
 const char* ssid = "Redmi";
