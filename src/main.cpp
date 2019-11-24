@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST 
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <WiFi.h>
@@ -122,3 +124,4 @@ void loop() {
 
     webServer.handleClient();
 }
+#endif

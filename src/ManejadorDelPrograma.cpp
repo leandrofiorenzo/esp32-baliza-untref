@@ -31,3 +31,7 @@ void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const c
     controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
     controladorDeWifi.cambiarCredencialesConexion(nombreRed, contrasenaRed);
 };
+
+int ManejadorDelPrograma::dameNumero() {
+    return 3;
+}
