@@ -38,7 +38,7 @@ install:
     - platformio update
 
 script:
-    - platformio test -e native
+    - platformio test
 
 
 #

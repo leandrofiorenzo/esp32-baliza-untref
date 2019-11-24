@@ -15,7 +15,7 @@
 
 void test_led_builtin_pin_number(void) {
     ManejadorDelPrograma manejadorDelPrograma;  
-    TEST_ASSERT_EQUAL(4, manejadorDelPrograma.dameNumero());
+    TEST_ASSERT_EQUAL(3, manejadorDelPrograma.dameNumero());
     //TEST_ASSERT_EQUAL(13, LED_BUILTIN);
 }
 
