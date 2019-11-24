@@ -4,6 +4,15 @@ ControladorDeWifi::ControladorDeWifi() {
 
 };
 
+void ControladorDeWifi::notificarIPDispositivo() {
+    HTTPClient clienteHttp;
+    String ip = WiFi.localIP().toString();
+    String url = "https://esp32-api.herokuapp.com/api/v1/ip/" + ip;
+    clienteHttp.begin(url);
+    clienteHttp.POST("");
+    clienteHttp.end();
+}
+
 void ControladorDeWifi::establecerConexionWiFi() {
     WiFi.disconnect();
     WiFi.begin(nombreRed, contrasenaRed);
@@ -13,6 +22,10 @@ void ControladorDeWifi::establecerConexionWiFi() {
         Serial.println(". Reintentando en 1 segundo...");
         delay(1000);
     }
+
+    Serial.print("Conexión WiFi establecida exitosamente, con IP: "); 
+    Serial.println(WiFi.localIP());
+    notificarIPDispositivo();
 };
 
 boolean ControladorDeWifi::estaConectado() {

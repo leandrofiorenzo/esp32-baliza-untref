@@ -13,8 +13,15 @@
 ManejadorDelPrograma manejadorDelPrograma;
 WebServer webServer(80);
 
-const char* ssid = "Fibertel WiFi304 2.4GHz";
-const char* password = "0141695284";
+const char* ssid = "Redmi";
+const char* password = "lfiorenzo123";
+
+void pingRequest() {  
+    webServer.sendHeader("Access-Control-Allow-Origin", "*");
+    webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+    webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    webServer.send(200, "text/plain", "pong");
+}
 
 void actualizacionDeWiFiRequest() {  
     if (!webServer.hasArg("plain")) { 
@@ -35,7 +42,7 @@ void actualizacionDeWiFiRequest() {
     webServer.sendHeader("Access-Control-Allow-Origin", "*");
     webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
     webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    webServer.send(200);
+    webServer.send(200, "text/plain", "");
 
     manejadorDelPrograma.establecerConexionWiFi(redNueva, contrasenaNueva);
 }
@@ -73,7 +80,7 @@ void actualizacionDeServidorRequest() {
     webServer.sendHeader("Access-Control-Allow-Origin", "*");
     webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
     webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    webServer.send(200);
+    webServer.send(200, "text/plain", "");
 }
 
 void setup() {
@@ -82,9 +89,6 @@ void setup() {
     WiFi.mode(WIFI_STA);
 
     manejadorDelPrograma.establecerConexionWiFi(ssid, password);
-
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
 
     if (MDNS.begin("esp32")) {
         Serial.println("MDNS responder started");
@@ -97,6 +101,7 @@ void setup() {
         webServer.send(200, "text/plain", "");
     });
 
+    webServer.on("/ping", HTTP_GET, pingRequest);
     webServer.on("/wifi", HTTP_POST, actualizacionDeWiFiRequest);
     webServer.on("/servidor", HTTP_POST, actualizacionDeServidorRequest);
     webServer.begin();
