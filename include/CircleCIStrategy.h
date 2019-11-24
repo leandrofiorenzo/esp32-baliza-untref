@@ -1,9 +1,9 @@
-#include "ServidorCIStrategy.hpp"
+#include "ServidorCIStrategy.h"
 
-class TravisStrategy : public ServidorCIStrategy {
-    public: 
-        TravisStrategy(); 
-        virtual ~TravisStrategy();   
+class CircleCIStrategy : public ServidorCIStrategy {
+    public:      
+        CircleCIStrategy();
+        virtual ~CircleCIStrategy();
         EstadoBuildEnum obtenerEstadoUltimoBuild();
         void definirTokenAcceso(String _tokenAccesso);
         void definirRepositorioId(String _repositorioId);

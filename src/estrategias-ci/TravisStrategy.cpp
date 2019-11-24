@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include "TravisStrategy.hpp"
-#include "enums/EstadoBuildEnum.hpp"
+#include "TravisStrategy.h"
+#include "EstadoBuildEnum.h"
 
 TravisStrategy::TravisStrategy() {
 

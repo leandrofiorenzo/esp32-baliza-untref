@@ -5,10 +5,10 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
-#include "ManejadorDelPrograma.hpp"
-#include "estrategias-ci/ServidorCIStrategy.hpp"
-#include "estrategias-ci/TravisStrategy.hpp"
-#include "estrategias-ci/CircleCIStrategy.hpp"
+#include "ManejadorDelPrograma.h"
+#include "ServidorCIStrategy.h"
+#include "TravisStrategy.h"
+#include "CircleCIStrategy.h"
 
 ManejadorDelPrograma manejadorDelPrograma;
 WebServer webServer(80);

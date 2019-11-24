@@ -1,4 +1,4 @@
-#include "ControladorDeWifi.hpp"
+#include "ControladorDeWifi.h"
 
 ControladorDeWifi::ControladorDeWifi() {
 

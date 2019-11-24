@@ -1,4 +1,4 @@
-#include "ServidorCIStrategy.hpp" 
+#include "ServidorCIStrategy.h" 
 
 ServidorCIStrategy::ServidorCIStrategy() {
 

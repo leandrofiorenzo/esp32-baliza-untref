@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <HTTPClient.h>
-#include "enums/EstadoBuildEnum.hpp"
+#include "EstadoBuildEnum.h"
 
 #ifndef ServidorCI_H
 #define ServidorCI_H

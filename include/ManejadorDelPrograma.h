@@ -1,6 +1,6 @@
-#include "estrategias-ci/ServidorCIStrategy.hpp"
-#include "ControladorDeWifi.hpp"
-#include "ControladorDeLeds.hpp"
+#include "ServidorCIStrategy.h"
+#include "ControladorDeWifi.h"
+#include "ControladorDeLeds.h"
 
 class ManejadorDelPrograma {
     private:

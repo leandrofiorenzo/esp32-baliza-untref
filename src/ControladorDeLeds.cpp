@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "ControladorDeLeds.hpp"
+#include "ControladorDeLeds.h"
 
 ControladorDeLeds::ControladorDeLeds() {
     pinMode(18, OUTPUT);

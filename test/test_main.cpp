@@ -1,52 +1,61 @@
+#include <Arduino.h>
 #include <unity.h>
 
-void setup () {
-    
+String STR_TO_TEST;
+
+void setUp(void) {
+    // set stuff up here
+    STR_TO_TEST = "Hello, world!";
 }
 
-void loop() {
-
+void tearDown(void) {
+    // clean stuff up here
+    STR_TO_TEST = "";
 }
 
-/* Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado exitoso 
-Cuando haya un push al repositorio y el estado del build sea exitoso 
-Entonces el ESP32 debe permanecer en estado exitoso (led verde)*/
-void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+void test_string_concat(void) {
+    String hello = "Hello, ";
+    String world = "world!";
+    TEST_ASSERT_EQUAL_STRING(STR_TO_TEST.c_str(), (hello + world).c_str());
 }
 
-/*Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado fallido 
-Cuando haya un push al repositorio y el estado del build sea fallido 
-Entonces el ESP32 debe permanecer en estado fallido (led rojo)*/
-void testUltimoBuildFallidoConPushFallidoNoCambiaEstado(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+void test_string_substring(void) {
+    TEST_ASSERT_EQUAL_STRING("Hello", STR_TO_TEST.substring(0, 5).c_str());
 }
 
-/*Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado exitoso 
-Cuando haya un push al repositorio y el estado del build sea fallido 
-Entonces el ESP32 debe cambiar el estado a fallido (debe encender el led rojo y apagar los demas)*/
-void testUltimoBuildFallidoConPushExitosoCambiaEstadoAExitoso(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+void test_string_index_of(void) {
+    TEST_ASSERT_EQUAL(7, STR_TO_TEST.indexOf('w'));
 }
 
-/*Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado fallido 
-Cuando haya un push al repositorio y el estado del build sea exitoso 
-Entonces el ESP32 debe cambiar el estado a exitoso (debe encender el led verde y apagar los demas)*/
-void testUltimoBuildExitosoConPushFallidoCambiaEstadoAFallido(void) {
-    TEST_ASSERT_EQUAL(2, 2);
+void test_string_equal_ignore_case(void) {
+    TEST_ASSERT_TRUE(STR_TO_TEST.equalsIgnoreCase("HELLO, WORLD!"));
 }
 
-int main(int argc, char **argv) {
+void test_string_to_upper_case(void) {
+    STR_TO_TEST.toUpperCase();
+    TEST_ASSERT_EQUAL_STRING("HELLO, WORLD!", STR_TO_TEST.c_str());
+}
+
+void test_string_replace(void) {
+    STR_TO_TEST.replace('!', '?');
+    TEST_ASSERT_EQUAL_STRING("Hello, world?", STR_TO_TEST.c_str());
+}
+
+void setup()
+{
+    delay(2000); // service delay
     UNITY_BEGIN();
 
-    RUN_TEST(testUltimoBuildExitosoConPushExitosoNoCambiaEstado);
-    RUN_TEST(testUltimoBuildFallidoConPushFallidoNoCambiaEstado);
-    RUN_TEST(testUltimoBuildFallidoConPushExitosoCambiaEstadoAExitoso);
-    RUN_TEST(testUltimoBuildExitosoConPushFallidoCambiaEstadoAFallido);
+    RUN_TEST(test_string_concat);
+    RUN_TEST(test_string_substring);
+    RUN_TEST(test_string_index_of);
+    RUN_TEST(test_string_equal_ignore_case);
+    RUN_TEST(test_string_to_upper_case);
+    RUN_TEST(test_string_replace);
 
-    UNITY_END();
-
-    return 0;
+    UNITY_END(); // stop unit testing
 }
 
-
+void loop()
+{
+}

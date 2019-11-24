@@ -1,4 +1,5 @@
-#include "enums/EstadoBuildEnum.hpp"
+#include <Arduino.h>
+#include "EstadoBuildEnum.h"
 
 class ControladorDeLeds {
     public: 

@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include "ManejadorDelPrograma.hpp"
-#include "estrategias-ci/ServidorCIStrategy.hpp"
-#include "enums/EstadoBuildEnum.hpp"
+#include "ManejadorDelPrograma.h"
+#include "ServidorCIStrategy.h"
+#include "EstadoBuildEnum.h"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
 
