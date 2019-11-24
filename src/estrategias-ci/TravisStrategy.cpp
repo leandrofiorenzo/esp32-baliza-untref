@@ -1,7 +1,5 @@
-#include <Arduino.h>
-#include <ArduinoJson.h>
+
 #include "TravisStrategy.h"
-#include "EstadoBuildEnum.h"
 
 TravisStrategy::TravisStrategy() {
 

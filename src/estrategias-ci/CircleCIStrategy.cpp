@@ -1,7 +1,4 @@
-#include <Arduino.h>
-#include <ArduinoJson.h>
 #include "CircleCIStrategy.h"
-#include "EstadoBuildEnum.h"
 
 CircleCIStrategy::CircleCIStrategy() {
 

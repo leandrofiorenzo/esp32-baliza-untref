@@ -1,7 +1,4 @@
-#include <Arduino.h>
 #include "ManejadorDelPrograma.h"
-#include "ServidorCIStrategy.h"
-#include "EstadoBuildEnum.h"
 
 ManejadorDelPrograma::ManejadorDelPrograma() {
 

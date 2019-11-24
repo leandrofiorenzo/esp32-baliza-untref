@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "ControladorDeLeds.h"
 
 ControladorDeLeds::ControladorDeLeds() {

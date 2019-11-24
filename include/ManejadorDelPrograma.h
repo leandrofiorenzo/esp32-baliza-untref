@@ -1,6 +1,8 @@
+#include <Arduino.h>
 #include "ServidorCIStrategy.h"
 #include "ControladorDeWifi.h"
 #include "ControladorDeLeds.h"
+#include "EstadoBuildEnum.h"
 
 class ManejadorDelPrograma {
     private:
