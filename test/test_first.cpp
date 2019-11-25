@@ -6,7 +6,7 @@
 #include "ManejadorDelPrograma.h"
 #include "mocks/MockBuildExitoso.cpp"
 #include "mocks/MockBuildFallido.cpp"
-#include "mocks/MockControladorDeWifi.cpp"
+#include "mocks/MockControladorDeWifiConectado.cpp"
 
 void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) { 
     MockBuildExitoso mockBuildExitoso;
@@ -25,7 +25,7 @@ void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) {
 //Cuando se le asigna un servidor de Integracion Continua      
 //Entonces el ESP32 se debe conectar con el servidor por WIFI  
 void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {
-    MockControladorDeWifi *mockControladorDeWifi = new MockControladorDeWifi();
+    MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
     ManejadorDelPrograma manejadorDelPrograma(mockControladorDeWifi);
 
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
