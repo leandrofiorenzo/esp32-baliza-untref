@@ -8,9 +8,9 @@ class ManejadorDelPrograma {
     private:
         ServidorCIStrategy *servidorCI;
         ControladorDeWifi *controladorDeWifi;
-        ControladorDeLeds controladorDeLeds;
+        ControladorDeLeds *controladorDeLeds;
     public: 
-        ManejadorDelPrograma(ControladorDeWifi *_controladorDeWifi);
+        ManejadorDelPrograma(ControladorDeWifi *_controladorDeWifi, ControladorDeLeds *_controladorDeLeds);
         void ejecutarRutinaDeVerificacion();
         void definirServidorDeIntegracionContinua(ServidorCIStrategy *_servidorCI);
         void establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed);

@@ -2,9 +2,7 @@
 
 class CircleCIStrategy : public ServidorCIStrategy {
     public:      
-        CircleCIStrategy();
+        CircleCIStrategy(String _tokenAcceso, String _identificadorDelRepositorio);
         virtual ~CircleCIStrategy();
         EstadoBuildEnum obtenerEstadoUltimoBuild();
-        void definirTokenAcceso(String _tokenAccesso);
-        void definirRepositorioId(String _repositorioId);
 };

@@ -8,18 +8,59 @@
 #include <ESPmDNS.h>
 
 #include "ControladorDeWifi.h"
+#include "ControladorDeLeds.h"
 #include "ManejadorDelPrograma.h"
 #include "ServidorCIStrategy.h"
-#include "TravisStrategy.h"
+#include "TravisCIStrategy.h"
 #include "CircleCIStrategy.h"
 
-ControladorDeWifi *controladorDeWifi = new ControladorDeWifi();
-ManejadorDelPrograma manejadorDelPrograma(controladorDeWifi);
-
 WebServer webServer(80);
+ControladorDeWifi *controladorDeWifi = new ControladorDeWifi();
+ControladorDeLeds *controladorDeLeds = new ControladorDeLeds();
+ManejadorDelPrograma manejadorDelPrograma(controladorDeWifi, controladorDeLeds);
 
-const char* ssid = "Redmi";
-const char* password = "lfiorenzo123";
+void inicializarApi();
+void pingRequest();
+void actualizacionDeWiFiRequest();
+void actualizacionDeServidorRequest();
+
+void setup() {
+    Serial.begin(115200);
+    
+    //Inicializamos la conexión WiFi
+    const char* nombreRed = "wifi18878";
+    const char* contrasenaRed = "51883488";
+    manejadorDelPrograma.establecerConexionWiFi(nombreRed, contrasenaRed);
+
+    //Inicializamos la api de configuración
+    inicializarApi();
+
+    //Por defecto podemos definir CircleCI
+    CircleCIStrategy *circleCIStrategy = new CircleCIStrategy("8761a13e3eb7b85dd360b5b7b85bd63c9f8841bf", "sample-repository");
+    manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
+}
+
+void loop() {
+    manejadorDelPrograma.ejecutarRutinaDeVerificacion();
+
+    webServer.handleClient();
+}
+
+void inicializarApi() {
+    MDNS.begin("esp32");
+
+    webServer.on("/", HTTP_OPTIONS, []() {
+        webServer.sendHeader("Access-Control-Max-Age", "10000");
+        webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+        webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        webServer.send(200, "text/plain", "");
+    });
+
+    webServer.on("/ping", HTTP_GET, pingRequest);
+    webServer.on("/wifi", HTTP_POST, actualizacionDeWiFiRequest);
+    webServer.on("/servidor", HTTP_POST, actualizacionDeServidorRequest);
+    webServer.begin();
+}
 
 void pingRequest() {  
     webServer.sendHeader("Access-Control-Allow-Origin", "*");
@@ -66,19 +107,15 @@ void actualizacionDeServidorRequest() {
     deserializeJson(dynamicJsonDocument, jsonBody);   
     JsonObject jsonObject = dynamicJsonDocument.as<JsonObject>();
     
-    String servidorCIN = jsonObject["servidorCI"];
-    String tokenAccesoN = jsonObject["tokenAcceso"];
-    String repositorioIdN = jsonObject["repositorioId"];
+    String servidorCINuevo = jsonObject["servidorCI"];
+    String tokenAccesoNuevo = jsonObject["tokenAcceso"];
+    String identificadorDelRepositorioNuevo = jsonObject["identificadorDelRepositorio"];
 
-    if(servidorCIN == "TravisCI") { 
-        TravisStrategy *travisStrategy = new TravisStrategy();
-        travisStrategy->definirTokenAcceso(tokenAccesoN);
-        travisStrategy->definirRepositorioId(repositorioIdN);
-        manejadorDelPrograma.definirServidorDeIntegracionContinua(travisStrategy);
-    } else if(servidorCIN == "CircleCI") {
-        CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
-        circleCIStrategy->definirTokenAcceso(tokenAccesoN);
-        circleCIStrategy->definirRepositorioId(repositorioIdN);
+    if(servidorCINuevo == "TravisCI") { 
+        TravisCIStrategy *travisCIStrategy = new TravisCIStrategy(tokenAccesoNuevo, identificadorDelRepositorioNuevo);
+        manejadorDelPrograma.definirServidorDeIntegracionContinua(travisCIStrategy);
+    } else if(servidorCINuevo == "CircleCI") {
+        CircleCIStrategy *circleCIStrategy = new CircleCIStrategy(tokenAccesoNuevo, identificadorDelRepositorioNuevo);
         manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
     }
 
@@ -86,45 +123,5 @@ void actualizacionDeServidorRequest() {
     webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
     webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     webServer.send(200, "text/plain", "");
-}
-
-void setup() {
-    Serial.begin(115200);
-    
-    WiFi.mode(WIFI_STA);
-
-    manejadorDelPrograma.establecerConexionWiFi(ssid, password);
-
-    if (MDNS.begin("esp32")) {
-        Serial.println("MDNS responder started");
-    }
-
-    webServer.on("/", HTTP_OPTIONS, []() {
-        webServer.sendHeader("Access-Control-Max-Age", "10000");
-        webServer.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
-        webServer.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        webServer.send(200, "text/plain", "");
-    });
-
-    webServer.on("/ping", HTTP_GET, pingRequest);
-    webServer.on("/wifi", HTTP_POST, actualizacionDeWiFiRequest);
-    webServer.on("/servidor", HTTP_POST, actualizacionDeServidorRequest);
-    webServer.begin();
-    
-    Serial.println("HTTP server started");
-
-    //Por defecto podemos definir CircleCI
-    CircleCIStrategy *circleCIStrategy = new CircleCIStrategy();
-    const char* tokenAcceso1 = "8761a13e3eb7b85dd360b5b7b85bd63c9f8841bf";
-    circleCIStrategy->definirTokenAcceso(tokenAcceso1);
-    const char* repositorioId1 = "sample-repository";
-    circleCIStrategy->definirRepositorioId(repositorioId1);
-    manejadorDelPrograma.definirServidorDeIntegracionContinua(circleCIStrategy);
-}
-
-void loop() {
-    manejadorDelPrograma.ejecutarRutinaDeVerificacion();
-
-    webServer.handleClient();
 }
 #endif

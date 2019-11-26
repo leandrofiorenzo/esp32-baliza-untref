@@ -1,6 +1,6 @@
 #include "CircleCIStrategy.h"
 
-CircleCIStrategy::CircleCIStrategy() {
+CircleCIStrategy::CircleCIStrategy(String _tokenAcceso, String _identificadorDelRepositorio) : ServidorCIStrategy(_tokenAcceso, _identificadorDelRepositorio) {
 
 };
 
@@ -12,7 +12,7 @@ EstadoBuildEnum CircleCIStrategy::obtenerEstadoUltimoBuild() {
     Serial.println("Soy CircleCI");
     HTTPClient clienteHttp;
 
-    String url = "https://circleci.com/api/v1.1/project/github/leandrofiorenzo/" + repositorioId + "?circle-token=" + tokenAcceso + "&limit=1";
+    String url = "https://circleci.com/api/v1.1/project/github/leandrofiorenzo/" + identificadorDelRepositorio + "?circle-token=" + tokenAcceso + "&limit=1";
     
     clienteHttp.begin(url);
     clienteHttp.addHeader("Accept", "application/json"); 
@@ -61,12 +61,4 @@ EstadoBuildEnum CircleCIStrategy::obtenerEstadoUltimoBuild() {
     clienteHttp.end();
 
     return EstadoBuildEnum::Desconocido;
-};
-
-void CircleCIStrategy::definirTokenAcceso(String _tokenAccesso) {
-    tokenAcceso = _tokenAccesso;
-};
-
-void CircleCIStrategy::definirRepositorioId(String _repositorioId) {
-    repositorioId = _repositorioId;
 };

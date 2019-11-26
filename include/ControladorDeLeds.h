@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "EstadoBuildEnum.h"
 
+#ifndef ControladorDeLeds_H
+#define ControladorDeLeds_H
+
 class ControladorDeLeds {
     public: 
         ControladorDeLeds();
@@ -11,3 +14,5 @@ class ControladorDeLeds {
     private: 
         void apagarTodosLosLeds();
 };
+
+#endif

@@ -1,7 +1,7 @@
 #include "ControladorDeWifi.h"
 
 ControladorDeWifi::ControladorDeWifi() {
-
+    WiFi.mode(WIFI_STA);
 };
 
 void ControladorDeWifi::notificarIPDispositivo() {
@@ -29,7 +29,6 @@ void ControladorDeWifi::establecerConexionWiFi() {
 };
 
 boolean ControladorDeWifi::estaConectado() {
-    Serial.println("ENTRE POR ACA");
     return WiFi.status() ==  WL_CONNECTED;
 };
 

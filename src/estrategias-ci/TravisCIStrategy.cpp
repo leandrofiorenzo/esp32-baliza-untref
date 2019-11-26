@@ -1,19 +1,19 @@
 
-#include "TravisStrategy.h"
+#include "TravisCIStrategy.h"
 
-TravisStrategy::TravisStrategy() {
-
-};
-
-TravisStrategy::~TravisStrategy() {
+TravisCIStrategy::TravisCIStrategy(String _tokenAcceso, String _identificadorDelRepositorio) : ServidorCIStrategy(_tokenAcceso, _identificadorDelRepositorio) {
 
 };
 
-EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
+TravisCIStrategy::~TravisCIStrategy() {
+
+};
+
+EstadoBuildEnum TravisCIStrategy::obtenerEstadoUltimoBuild() {
     Serial.println("Soy TravisCI");
     HTTPClient clienteHttp;
 
-    String url = "https://api.travis-ci.org/repo/" + repositorioId + "/builds?limit=1";
+    String url = "https://api.travis-ci.org/repo/" + identificadorDelRepositorio + "/builds?limit=1";
     String token = "token " + tokenAcceso;
 
     clienteHttp.begin(url);
@@ -53,12 +53,4 @@ EstadoBuildEnum TravisStrategy::obtenerEstadoUltimoBuild() {
     clienteHttp.end();
 
     return EstadoBuildEnum::Desconocido;
-};
-
-void TravisStrategy::definirTokenAcceso(String _tokenAccesso) {
-    tokenAcceso = _tokenAccesso;
-};
-
-void TravisStrategy::definirRepositorioId(String _repositorioId) {
-    repositorioId = _repositorioId;
 };

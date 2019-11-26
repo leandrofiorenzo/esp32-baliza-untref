@@ -1,23 +1,23 @@
 #include "ManejadorDelPrograma.h"
 
-ManejadorDelPrograma::ManejadorDelPrograma(ControladorDeWifi *_controladorDeWifi) {
+ManejadorDelPrograma::ManejadorDelPrograma(ControladorDeWifi *_controladorDeWifi, ControladorDeLeds *_controladorDeLeds) {
     controladorDeWifi = _controladorDeWifi;
 };
 
 void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {  
     if(controladorDeWifi->estaConectado()) {    
 
-        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
+        controladorDeLeds->prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::ConectadoWIFI);
 
         //1) Obtenemos el estado del ultimo build en el CI que corresponda.
         EstadoBuildEnum estadoBuild = servidorCI->obtenerEstadoUltimoBuild();  
         
         //2) Prendemos el led que corresponda.
-        controladorDeLeds.prenderLedCorrespondienteAlEstado(estadoBuild);
+        controladorDeLeds->prenderLedCorrespondienteAlEstado(estadoBuild);
 
     }  else {
         Serial.println("No hay conexión. Reintentando...");
-        controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
+        controladorDeLeds->prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
         controladorDeWifi->establecerConexionWiFi();
     }      
 };
@@ -28,7 +28,7 @@ void ManejadorDelPrograma::definirServidorDeIntegracionContinua(ServidorCIStrate
 };
 
 void ManejadorDelPrograma::establecerConexionWiFi(const char *nombreRed, const char *contrasenaRed) {
-    controladorDeLeds.prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
+    controladorDeLeds->prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnum::DesconexionWIFI);
     controladorDeWifi->cambiarCredencialesConexion(nombreRed, contrasenaRed);
 };
 

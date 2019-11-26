@@ -9,13 +9,13 @@
 class ServidorCIStrategy {
     protected: 
         String tokenAcceso;
-        String repositorioId; 
+        String identificadorDelRepositorio; 
     public: 
-        ServidorCIStrategy();
+        ServidorCIStrategy(String _tokenAcceso, String _identificadorDelRepositorio);
         virtual ~ServidorCIStrategy();
         virtual EstadoBuildEnum obtenerEstadoUltimoBuild() = 0;
-        virtual void definirTokenAcceso(String _tokenAccesso) = 0;
-        virtual void definirRepositorioId(String _repositorioId) = 0;
+        void definirTokenAcceso(String _tokenAcceso);
+        void definiridentificadorDelRepositorio(String _identificadorDelRepositorio);
 };
 
 #endif

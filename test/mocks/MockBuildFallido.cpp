@@ -2,11 +2,13 @@
 
 class MockBuildFallido : public ServidorCIStrategy {
     public:    
-        MockBuildFallido() {};
+        MockBuildFallido(String _tokenAcceso, String _identificadorDelRepositorio) : ServidorCIStrategy(_tokenAcceso, _identificadorDelRepositorio) {
+            
+        };
         ~MockBuildFallido() {};
         EstadoBuildEnum obtenerEstadoUltimoBuild() {
             return EstadoBuildEnum::Fallido;
         };
-        void definirTokenAcceso(String _tokenAccesso) {};
-        void definirRepositorioId(String _repositorioId) {};
+        void definirTokenAcceso(String _tokenAcceso) {};
+        void definiridentificadorDelRepositorio(String _identificadorDelRepositorio) {};
 };
