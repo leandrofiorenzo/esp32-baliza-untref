@@ -21,6 +21,48 @@ void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) {
     //Entonces el ESP32 debe permanecer en estado exitoso (led verde)
     TEST_ASSERT_EQUAL(EstadoBuildEnum::Exitoso, ultimoBuild);
 }
+  
+void testUltimoBuildFallidoConPushFallidoNoCambiaEstado(void) { 
+    MockBuildFallido MockBuildFallido("", "");
+
+    //Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado fallido 
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Fallido, MockBuildFallido.obtenerEstadoUltimoBuild());
+    
+    //Cuando haya un push al repositorio y el estado del build sea fallido  
+    EstadoBuildEnum ultimoBuild = MockBuildFallido.obtenerEstadoUltimoBuild();
+    
+    //Entonces el ESP32 debe permanecer en estado fallido (led rojo)
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Fallido, ultimoBuild);
+}
+
+void testUltimoBuildExitosoConPushFallidoCambiaEstado(void) { 
+    MockBuildFallido MockBuildFallido("", "");
+    MockBuildExitoso MockBuildExitoso("", "");
+
+    //Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado exitoso 
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Exitoso, MockBuildExitoso.obtenerEstadoUltimoBuild());
+    
+    //Cuando haya un push al repositorio y el estado del build sea fallido  
+    EstadoBuildEnum ultimoBuild = MockBuildFallido.obtenerEstadoUltimoBuild();
+    
+    //Entonces el ESP32 debe cambiar el estado a fallido (led rojo)
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Fallido, ultimoBuild);
+}
+
+void testUltimoBuildFallidoConPushExitosoCambiaEstado(void) { 
+    MockBuildFallido MockBuildFallido("", "");
+    MockBuildExitoso MockBuildExitoso("", "");
+
+    //Dado un ESP32 conectado por WiFi a un servidor de Integración Continua con el último build en estado fallido
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Fallido, MockBuildFallido.obtenerEstadoUltimoBuild());
+    
+    //Cuando haya un push al repositorio y el estado del build sea exitoso   
+    EstadoBuildEnum ultimoBuild = MockBuildExitoso.obtenerEstadoUltimoBuild();
+    
+    //Entonces el ESP32 debe cambiar el estado a exitoso
+    TEST_ASSERT_EQUAL(EstadoBuildEnum::Exitoso, ultimoBuild);
+}
+
 
 //Dado un ESP32 encendido        
 //Cuando se le asigna un servidor de Integracion Continua      
