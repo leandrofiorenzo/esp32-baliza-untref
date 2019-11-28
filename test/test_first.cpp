@@ -9,6 +9,8 @@
 #include "mocks/MockControladorDeWifiConectado.cpp"
 #include "mocks/MockControladorDeLeds.cpp"
 
+/***** 1° Criterio de Aceptacion *****/
+
 void testUltimoBuildExitosoConPushExitosoNoCambiaEstado(void) { 
     MockBuildExitoso mockBuildExitoso("", "");
 
@@ -63,18 +65,30 @@ void testUltimoBuildFallidoConPushExitosoCambiaEstado(void) {
     TEST_ASSERT_EQUAL(EstadoBuildEnum::Exitoso, ultimoBuild);
 }
 
+/***** 2° Criterio de Aceptacion *****/
 
-//Dado un ESP32 encendido        
-//Cuando se le asigna un servidor de Integracion Continua      
-//Entonces el ESP32 se debe conectar con el servidor por WIFI  
+// Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
+// Cuando el estado del build sea exitoso  
+// Entonces el ESP32 debe encender el led verde de la baliza  
+
+// Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
+// Cuando el estado del build sea fallido  
+// Entonces el ESP32 debe encender el led rojo de la baliza
+
+/***** 4° Criterio de Aceptacion *****/
+
 void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {
+    //Dado un ESP32 encendido
     MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
     MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
     ManejadorDelPrograma manejadorDelPrograma(mockControladorDeWifi, mockControladorDeLeds);
 
     MockBuildExitoso *mockBuildExitoso = new MockBuildExitoso("", "");
+    
+    //Cuando se le asigna un servidor de Integracion Continua 
     manejadorDelPrograma.definirServidorDeIntegracionContinua(mockBuildExitoso);
 
+    //Entonces el ESP32 se debe conectar con el servidor por WIFI  
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
 }
 
