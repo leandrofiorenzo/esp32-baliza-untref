@@ -6,6 +6,7 @@
 #include "ManejadorDelPrograma.h"
 #include "mocks/MockBuildExitoso.cpp"
 #include "mocks/MockBuildFallido.cpp"
+#include "mocks/MockBuildEnCurso.cpp"
 #include "mocks/MockControladorDeWifiConectado.cpp"
 #include "mocks/MockControladorDeLeds.cpp"
 
