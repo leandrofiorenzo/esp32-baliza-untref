@@ -67,13 +67,39 @@ void testUltimoBuildFallidoConPushExitosoCambiaEstado(void) {
 
 /***** 2° Criterio de Aceptacion *****/
 
-// Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
-// Cuando el estado del build sea exitoso  
-// Entonces el ESP32 debe encender el led verde de la baliza  
+void testConectadoAWifiConPushExitosoEnciendeLedVerde(void) {
+    MockBuildExitoso MockBuildExitoso("", "");
+    MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
+    MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
 
-// Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
-// Cuando el estado del build sea fallido  
-// Entonces el ESP32 debe encender el led rojo de la baliza
+    // Dado un ESP32 conectado por WiFi a un servidor de Integración Continua
+    TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
+
+    // Cuando el estado del build sea exitoso 
+    EstadoBuildEnum ultimoBuild = MockBuildExitoso.obtenerEstadoUltimoBuild(); 
+
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstado(ultimoBuild);
+
+    // Entonces el ESP32 debe encender el led verde de la baliza
+    TEST_ASSERT_EQUAL(HIGH, digitalRead(22));
+}
+
+void testConectadoAWifiConPushFallidoEnciendeLedRojo(void) {
+    MockBuildFallido MockBuildFallido("", "");
+    MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
+    MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
+
+    // Dado un ESP32 conectado por WiFi a un servidor de Integración Continua 
+    TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
+
+    // Cuando el estado del build sea fallido  
+    EstadoBuildEnum ultimoBuild = MockBuildFallido.obtenerEstadoUltimoBuild(); 
+
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstado(ultimoBuild);
+
+    // Entonces el ESP32 debe encender el led rojo de la baliza
+    TEST_ASSERT_EQUAL(HIGH, digitalRead(23));
+}
 
 /***** 4° Criterio de Aceptacion *****/
 
