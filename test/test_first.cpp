@@ -101,6 +101,24 @@ void testConectadoAWifiConPushFallidoEnciendeLedRojo(void) {
     TEST_ASSERT_EQUAL(HIGH, digitalRead(23));
 }
 
+void testConectadoAWifiConPushValidandoEnciendeLedAzul(void) {
+    MockBuildEnCurso MockBuildEnCurso("", "");
+    MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
+    MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
+
+    // Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
+    TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
+
+    // Cuando el estado del build sea validando  
+    EstadoBuildEnum ultimoBuild = MockBuildEnCurso.obtenerEstadoUltimoBuild(); 
+
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoBuild);
+
+    // Entonces el ESP32 debe encender el led azul de la baliza 
+    TEST_ASSERT_EQUAL(HIGH, digitalRead(21));
+}
+
+
 /***** 4° Criterio de Aceptacion *****/
 
 void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {

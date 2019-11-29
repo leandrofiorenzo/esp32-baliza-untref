@@ -42,7 +42,11 @@ Fallido => Rojo
 
 + Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
   Cuando el estado del build sea fallido  
-  Entonces el ESP32 debe encender el led rojo de la baliza  
+  Entonces el ESP32 debe encender el led rojo de la baliza 
+
++ Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
+  Cuando el estado del build sea validando  
+  Entonces el ESP32 debe encender el led azul de la baliza  
 
 ## 3. Aviso de cambio de estado    
 La baliza deberá destacar el cambio de estado (Exitoso a Fallido o Fallido a Exitoso) con un alarma sonora corta y/o parpadeo de la luz.
