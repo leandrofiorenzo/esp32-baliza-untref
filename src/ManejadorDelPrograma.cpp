@@ -13,7 +13,7 @@ void ManejadorDelPrograma::ejecutarRutinaDeVerificacion() {
         EstadoBuildEnum estadoBuild = servidorCI->obtenerEstadoUltimoBuild();  
         
         //2) Prendemos el led que corresponda.
-        controladorDeLeds->prenderLedCorrespondienteAlEstado(estadoBuild);
+        controladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(estadoBuild);
 
     }  else {
         Serial.println("No hay conexión. Reintentando...");

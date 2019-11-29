@@ -78,7 +78,7 @@ void testConectadoAWifiConPushExitosoEnciendeLedVerde(void) {
     // Cuando el estado del build sea exitoso 
     EstadoBuildEnum ultimoBuild = MockBuildExitoso.obtenerEstadoUltimoBuild(); 
 
-    mockControladorDeLeds->prenderLedCorrespondienteAlEstado(ultimoBuild);
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoBuild);
 
     // Entonces el ESP32 debe encender el led verde de la baliza
     TEST_ASSERT_EQUAL(HIGH, digitalRead(22));
@@ -95,7 +95,7 @@ void testConectadoAWifiConPushFallidoEnciendeLedRojo(void) {
     // Cuando el estado del build sea fallido  
     EstadoBuildEnum ultimoBuild = MockBuildFallido.obtenerEstadoUltimoBuild(); 
 
-    mockControladorDeLeds->prenderLedCorrespondienteAlEstado(ultimoBuild);
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoBuild);
 
     // Entonces el ESP32 debe encender el led rojo de la baliza
     TEST_ASSERT_EQUAL(HIGH, digitalRead(23));

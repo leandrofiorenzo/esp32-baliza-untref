@@ -22,7 +22,7 @@ void ControladorDeLeds::prenderLedCorrespondienteAlEstadoConexion(EstadoBuildEnu
     }
 }
 
-void ControladorDeLeds::prenderLedCorrespondienteAlEstado(EstadoBuildEnum estadoBuild) {
+void ControladorDeLeds::prenderLedCorrespondienteAlEstadoBuild(EstadoBuildEnum estadoBuild) {
     apagarTodosLosLeds();
     if(estadoBuild == EstadoBuildEnum::Creado) {
         Serial.println("Estoy Creado");
