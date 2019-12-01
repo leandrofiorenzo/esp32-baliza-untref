@@ -153,6 +153,12 @@ void setup() {
     UNITY_BEGIN();   
 
     RUN_TEST(testUltimoBuildExitosoConPushExitosoNoCambiaEstado);
+    RUN_TEST(testUltimoBuildFallidoConPushFallidoNoCambiaEstado);
+    RUN_TEST(testUltimoBuildExitosoConPushFallidoCambiaEstado);
+    RUN_TEST(testUltimoBuildFallidoConPushExitosoCambiaEstado);
+    RUN_TEST(testConectadoAWifiConPushExitosoEnciendeLedVerde);
+    RUN_TEST(testConectadoAWifiConPushFallidoEnciendeLedRojo);
+    RUN_TEST(testConectadoAWifiConPushValidandoEnciendeLedAzul);
     RUN_TEST(testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi);
     
     //pinMode(LED_BUILTIN, OUTPUT);
