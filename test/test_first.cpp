@@ -8,6 +8,7 @@
 #include "mocks/MockBuildFallido.cpp"
 #include "mocks/MockBuildEnCurso.cpp"
 #include "mocks/MockControladorDeWifiConectado.cpp"
+#include "mocks/MockControladorDeWifiDesconectado.cpp"
 #include "mocks/MockControladorDeLeds.cpp"
 
 /***** 1° Criterio de Aceptacion *****/
@@ -102,7 +103,9 @@ void testConectadoAWifiConPushFallidoEnciendeLedRojo(void) {
     TEST_ASSERT_EQUAL(HIGH, digitalRead(23));
 }
 
-void testConectadoAWifiConPushValidandoEnciendeLedAzul(void) {
+/***** 3° Criterio de Aceptacion *****/
+
+void testConectadoAWifiConPushEnCursoDeValidacionEnciendeLedAzul(void) {
     MockBuildEnCurso MockBuildEnCurso("", "");
     MockControladorDeWifiConectado *mockControladorDeWifi = new MockControladorDeWifiConectado();
     MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
@@ -110,12 +113,12 @@ void testConectadoAWifiConPushValidandoEnciendeLedAzul(void) {
     // Dado un ESP32 conectado por WiFi a un servidor de Integración Continua  
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
 
-    // Cuando el estado del build sea validando  
+    // Cuando haya un push al repositorio y el build se encuentre en curso
     EstadoBuildEnum ultimoBuild = MockBuildEnCurso.obtenerEstadoUltimoBuild(); 
 
     mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoBuild);
 
-    // Entonces el ESP32 debe encender el led azul de la baliza 
+    // Entonces el ESP32 debe encender el led azul de la baliza mientras se procesa
     TEST_ASSERT_EQUAL(HIGH, digitalRead(21));
 }
 
@@ -135,6 +138,30 @@ void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {
 
     //Entonces el ESP32 se debe conectar con el servidor por WIFI  
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
+}
+
+/***** 5° Criterio de Aceptacion *****/
+
+void testConectadoAWiFiSeDesconecta(void) {
+    //Dado un ESP32 encendido
+    MockControladorDeWifiConectado *mockControladorDeWifiConectado = new MockControladorDeWifiConectado();
+    MockControladorDeWifiDesconectado *mockControladorDeWifiDesconectado = new MockControladorDeWifiDesconectado();
+    MockControladorDeLeds *mockControladorDeLeds = new MockControladorDeLeds();
+
+    // Dado un ESP32 conectado por WiFi 
+    TEST_ASSERT_TRUE(mockControladorDeWifiConectado->estaConectado());
+
+    // Cuando se pierda la conexion por WiFi    
+    TEST_ASSERT_TRUE(mockControladorDeWifiDesconectado->estaConectado());
+
+    EstadoBuildEnum ultimoEstadoConexion = DesconexionWIFI;
+
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoEstadoConexion);
+
+    // Entonces el ESP32 debe apagar la luz amarilla y  encender la luz roja del costado de la baliza
+    TEST_ASSERT_EQUAL(HIGH, digitalRead(18));
+    TEST_ASSERT_EQUAL(LOW, digitalRead(19));
+
 }
 
 // void test_led_state_high(void) {
@@ -158,7 +185,7 @@ void setup() {
     RUN_TEST(testUltimoBuildFallidoConPushExitosoCambiaEstado);
     RUN_TEST(testConectadoAWifiConPushExitosoEnciendeLedVerde);
     RUN_TEST(testConectadoAWifiConPushFallidoEnciendeLedRojo);
-    RUN_TEST(testConectadoAWifiConPushValidandoEnciendeLedAzul);
+    RUN_TEST(testConectadoAWifiConPushEnCursoDeValidacionEnciendeLedAzul);
     RUN_TEST(testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi);
     
     //pinMode(LED_BUILTIN, OUTPUT);
