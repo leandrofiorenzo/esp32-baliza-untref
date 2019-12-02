@@ -138,6 +138,13 @@ void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {
 
     //Entonces el ESP32 se debe conectar con el servidor por WIFI  
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
+
+    EstadoBuildEnum ultimoEstadoConexion = ConectadoWIFI;
+
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoEstadoConexion);
+
+    TEST_ASSERT_EQUAL(HIGH, digitalRead(19));
+    TEST_ASSERT_EQUAL(LOW, digitalRead(18));
 }
 
 /***** 5° Criterio de Aceptacion *****/
@@ -187,6 +194,7 @@ void setup() {
     RUN_TEST(testConectadoAWifiConPushFallidoEnciendeLedRojo);
     RUN_TEST(testConectadoAWifiConPushEnCursoDeValidacionEnciendeLedAzul);
     RUN_TEST(testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi);
+    RUN_TEST(testConectadoAWiFiSeDesconecta);
     
     //pinMode(LED_BUILTIN, OUTPUT);
     UNITY_END();
