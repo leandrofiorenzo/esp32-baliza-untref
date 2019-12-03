@@ -39,7 +39,8 @@ install:
 
 script:
  #   - platformio test
-    - platformio run
+ #   - platformio run
+     - platformio remote test -e uno -e nodemcu
 
 
 #
