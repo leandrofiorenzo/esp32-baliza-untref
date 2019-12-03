@@ -139,9 +139,9 @@ void testConexionDeLaBalizaAlServidorDeIntegracionContinuaATravesDeWiFi(void) {
     //Entonces el ESP32 se debe conectar con el servidor por WIFI  
     TEST_ASSERT_TRUE(mockControladorDeWifi->estaConectado());
 
-    EstadoBuildEnum ultimoEstadoConexion = ConectadoWIFI;
+    EstadoBuildEnum ultimoEstadoConexion = EstadoBuildEnum::ConectadoWIFI;
 
-    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoEstadoConexion);
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoConexion(ultimoEstadoConexion);
 
     TEST_ASSERT_EQUAL(HIGH, digitalRead(19));
     TEST_ASSERT_EQUAL(LOW, digitalRead(18));
@@ -159,11 +159,11 @@ void testConectadoAWiFiSeDesconecta(void) {
     TEST_ASSERT_TRUE(mockControladorDeWifiConectado->estaConectado());
 
     // Cuando se pierda la conexion por WiFi    
-    TEST_ASSERT_TRUE(mockControladorDeWifiDesconectado->estaConectado());
+    TEST_ASSERT_FALSE(mockControladorDeWifiDesconectado->estaConectado());
 
-    EstadoBuildEnum ultimoEstadoConexion = DesconexionWIFI;
+    EstadoBuildEnum ultimoEstadoConexion = EstadoBuildEnum::DesconexionWIFI;
 
-    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoBuild(ultimoEstadoConexion);
+    mockControladorDeLeds->prenderLedCorrespondienteAlEstadoConexion(ultimoEstadoConexion);
 
     // Entonces el ESP32 debe apagar la luz amarilla y  encender la luz roja del costado de la baliza
     TEST_ASSERT_EQUAL(HIGH, digitalRead(18));
