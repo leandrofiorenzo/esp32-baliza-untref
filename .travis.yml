@@ -38,10 +38,9 @@ install:
     - platformio update
 
 script:
- #   - platformio test
+     - platformio test -e native
  #   - platformio run
-     #- platformio remote test list
-     - platformio remote test -h
+#    - platformio remote test
      #-e uno -e nodemcu
 
 
