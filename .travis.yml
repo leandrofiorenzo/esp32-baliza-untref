@@ -38,11 +38,8 @@ install:
     - platformio update
 
 script:
-#    - platformio test -e native
+    - platformio test -e esp32dev #native
 #    - platformio run
-    - platformio remote test -e esp32dev
-     #-e uno -e nodemcu
-
 
 #
 # Template #2: The project is intended to be used as a library with examples.
