@@ -38,9 +38,9 @@ install:
     - platformio update
 
 script:
-     - platformio test -e esp32dev #native
- #   - platformio run
-#    - platformio remote test
+#    - platformio test -e native
+#    - platformio run
+    - platformio remote test -e esp32dev
      #-e uno -e nodemcu
 
 
