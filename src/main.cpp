@@ -28,10 +28,10 @@ void setup() {
     Serial.begin(115200);
     
     //Inicializamos la conexión WiFi
-    //const char* nombreRed = "wifi18878";
-    //const char* contrasenaRed = "51883488";
-    const char* nombreRed = "Fibertel WiFi NUMERO 2";
-    const char* contrasenaRed = "00416040571";
+    //const char* nombreRed = "Fibertel WiFi NUMERO 2";
+    //const char* contrasenaRed = "00416040571";
+    const char* nombreRed = "wifi18878";
+    const char* contrasenaRed = "51883488";
     manejadorDelPrograma.establecerConexionWiFi(nombreRed, contrasenaRed);
 
     //Inicializamos la api de configuración
